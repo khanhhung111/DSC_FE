@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:5210';
+const BASE_URL = 'http://dsc-backend-api.azurewebsites.net';
 
 const configuration = ({ method, path, data, params }) => ({
   method: method,
