@@ -1,0 +1,70 @@
+.eventList {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.timeColumn {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  width: 72px;
+}
+
+.timeSlot {
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.31);
+  color: #000;
+  font: 500 14px/20px Roboto, sans-serif;
+  padding: 20px 7px;
+  text-align: center;
+  flex-grow: 1; /* Đảm bảo timeSlot chiếm toàn bộ chiều cao có sẵn */
+  display: flex; /* Cần thiết để đảm bảo text bên trong được căn giữa */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+}
+
+.eventColumn {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+@media (max-width: 991px) {
+  .eventList {
+    max-width: 100%;
+  }
+
+  .timeSlot {
+    padding: 10px 0;
+  }
+}
+.dayGroup {
+  margin-bottom: 30px;
+}
+
+.dateHeader {
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.dayContent {
+  display: flex;
+}
+
+.timeColumn {
+  width: 100px;
+  margin-right: 20px;
+}
+
+.timeSlot {
+  padding: 10px;
+  text-align: center;
+}
+
+.eventColumn {
+  flex: 1;
+}

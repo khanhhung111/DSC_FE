@@ -1,0 +1,41 @@
+.actionButtons {
+  display: flex;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  align-content: stretch;
+  gap: 50px;
+  padding-left: 150px;
+}
+
+.button {
+  border-radius: 100px;
+  background-color: #4caf4f;
+  color: #fff;
+  border: 1px solid #4caf4f;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.button:hover {
+  background-color: #4caf4f;
+  color: #fff;
+}
+.buttonresult {
+  border-radius: 100px;
+  background-color: #fff;
+  color: #4caf4f;
+  border: 1px solid #4caf4f;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.buttonresult:hover {
+  background-color: #4caf4f;
+  color: #fff;
+}

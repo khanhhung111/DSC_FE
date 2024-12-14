@@ -1,0 +1,38 @@
+.locationContainer {
+  margin-top: 20px;
+
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 30px; /* Tạo khoảng cách giữa card và section tiếp theo */
+}
+
+.locationTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.adminContainer {
+  display: flex;
+  align-items: center;
+}
+
+.adminAvatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.adminName {
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}

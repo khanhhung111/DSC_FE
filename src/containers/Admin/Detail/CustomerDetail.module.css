@@ -1,0 +1,103 @@
+/* CustomerDetail.module.css */
+
+/* Container chính của modal */
+.modalContainer {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
+  overflow-y: auto;
+}
+
+/* Header của modal */
+.modalHeader {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333333;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: center;
+  background-color: #f9fafb;
+}
+
+/* Nội dung của modal */
+.modalContent {
+  padding: 24px;
+  flex: 1; /* Chiếm phần lớn chiều cao */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Input field */
+.input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #333333;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+}
+
+/* Dropdown select */
+.select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background-color: #ffffff;
+  font-size: 14px;
+  color: #333333;
+}
+
+/* Button Group */
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 24px;
+  border-top: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+}
+
+/* Primary button */
+.buttonPrimary {
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttonPrimary:hover {
+  background-color: #1d4ed8;
+}
+
+/* Secondary button */
+.buttonSecondary {
+  background-color: #e5e7eb;
+  color: #333333;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttonSecondary:hover {
+  background-color: #d1d5db;
+}

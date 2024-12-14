@@ -1,0 +1,191 @@
+.accountDetails {
+    background-color: #fff;
+    flex-grow: 1;
+    padding: 64px;
+  }
+  
+  .sectionTitle {
+    color: #000;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 48px;
+  }
+  
+  .fieldsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 44px;
+  }
+  
+  .accountField {
+    flex: 1 1 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .fieldLabel {
+    color: #000;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .fieldValue {
+    color: #666;
+    font-size: 16px;
+    margin-top: 8px;
+  }
+  
+  .editButton {
+    color: #007aff;
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    text-align: left;
+  }
+  
+  @media (max-width: 991px) {
+    .accountDetails {
+      padding: 40px 20px;
+    }
+    
+    .fieldsContainer {
+      gap: 20px;
+    }
+  }
+  /* Style cho ô input */
+.editInput {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 15px;
+  border: 2px solid #3498db;
+  border-radius: 6px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.editInput:focus {
+  outline: none;
+  border-color: #2980b9;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+/* Style cho nút lưu */
+.saveButton {
+  padding: 8px 20px;
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.saveButton:hover {
+  background-color: #27ae60;
+  transform: translateY(-1px);
+}
+
+.saveButton:active {
+  transform: translateY(0);
+}
+
+/* Thêm icon cho nút lưu (tùy chọn) */
+.saveButton::before {
+  content: "✓";
+  font-size: 16px;
+}
+
+/* Style cho nút chỉnh sửa */
+/* .editButton {
+  padding: 8px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+} */
+
+/* .editButton:hover {
+  background-color: #2980b9;
+} */
+
+/* Tổng thể phần account field */
+/* .accountField {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+} */
+
+.fieldContent {
+  flex-grow: 1;
+  margin-right: 20px;
+}
+
+.fieldLabel {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.fieldValue {
+  font-size: 14px;
+  color: #555;
+}
+
+.editInput {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 12px; /* Khoảng cách giữa các input */
+}
+
+.saveButton, .editButton {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.saveButton:hover, .editButton:hover {
+  background-color: #0056b3;
+}
+
+.passwordFields {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tạo khoảng cách giữa các input trong phần đổi mật khẩu */
+.passwordFields input {
+  margin-bottom: 10px;
+}
+
+/* Thêm một chút hiệu ứng cho input khi người dùng tương tác */
+.editInput:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}

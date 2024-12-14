@@ -1,0 +1,99 @@
+.sportsBetting {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding-bottom: 22px;
+  }
+  
+  .bannerImage {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 0;
+  }
+  
+  .mainContent {
+    display: flex;
+    flex-direction: column;
+    padding: 0 24px;
+    width: 100%;
+  }
+  
+  .sectionTitle {
+    color: #000;
+    font: 400 22px/28px Roboto, sans-serif;
+    letter-spacing: 0;
+    margin: 10px 0 0 99px;
+  }
+  
+  @media (max-width: 991px) {
+    .mainContent {
+      max-width: 100%;
+      padding: 0 20px;
+    }
+  
+    .sectionTitle {
+      margin-left: 10px;
+    }
+  }
+  .bannerContainer {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .bannerImage {
+    width: 100%;
+    height: auto;
+  }
+  
+  .bannerContent {
+    position: absolute;
+    top: 50%;
+    left: 20px; /* Đẩy nội dung sát bên trái */
+    transform: translateY(-50%); /* Giữ lại chỉ transform theo chiều dọc để nội dung căn giữa theo chiều dọc */
+    text-align: left;
+    color: white;
+  }
+  
+  .bannerTitle {
+    font-size: 68px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .bannerSubtitle {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .buttonGroup {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .primaryButton {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .secondaryButton {
+    background-color: #28a745; /* Màu xanh lá */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .primaryButton:hover, .secondaryButton:hover {
+    opacity: 0.8;
+  }
+  

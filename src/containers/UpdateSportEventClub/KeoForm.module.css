@@ -1,0 +1,256 @@
+.eventForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.label {
+  font-size: 23px;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.input,
+.select,
+.textarea {
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+  background-color: #fff;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Thời gian */
+.durationInputs {
+  display: flex;
+  align-items: center;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 12px 15px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+}
+
+/* Chi phí */
+.costOptions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.costButton {
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  border: 2px solid rgba(217, 217, 217, 1);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.costButton:hover {
+  background-color: #f8f9fa;
+}
+
+.costButton.active {
+  background-color: #4CAF50;
+  border-color: #4CAF50;
+  color: white;
+}
+
+.costInputGroup {
+  display: flex;
+  align-items: center;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 5px 10px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.costInput {
+  width: 80px;
+  padding: 8px;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  text-align: right;
+}
+
+.costUnit {
+  margin-left: 5px;
+  font-size: 15px;
+  color: #666;
+  white-space: nowrap;
+}
+
+/* Radio buttons */
+.radioGroup {
+  border: none;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.radioInput {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  accent-color: #4CAF50;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .eventForm {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .label {
+    font-size: 20px;
+  }
+
+  .costButton {
+    padding: 8px 16px;
+    font-size: 16px;
+  }
+
+  .costOptions {
+    gap: 10px;
+  }
+
+  .costInputGroup {
+    width: 100%;
+  }
+
+  .costInput {
+    width: 100%;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.formGroup {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Custom scrollbar for textarea */
+.textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.textarea::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.textarea::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.textarea::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+.formColumns {
+  display: flex;
+  gap: 20px;
+}
+
+.leftColumn, .rightColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .formColumns {
+    flex-direction: column;
+  }
+}
+.formColumns {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.leftColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ruler {
+  width: 1px;
+  background-color: #ddd;
+  height: 100%;
+}
+
+.rightColumn {
+  flex: 1.2; /* Tăng độ rộng của cột bên phải */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .formColumns {
+    flex-direction: column;
+  }
+
+  .ruler {
+    display: none; /* Ẩn dòng kẻ trên màn hình nhỏ */
+  }
+}

@@ -1,0 +1,265 @@
+/* TournamentForm.module.css */
+.tournamentContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.bannerImage {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 0;
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  padding: 0 24px;
+  width: 100%;
+}
+
+.sectionTitle {
+  color: #000;
+  font: 400 22px/28px Roboto, sans-serif;
+  letter-spacing: 0;
+  margin: 10px 0 0 99px;
+}
+
+@media (max-width: 991px) {
+  .mainContent {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+
+  .sectionTitle {
+    margin-left: 10px;
+  }
+}
+.bannerContainer {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.bannerImage {
+  width: 100%;
+  height: auto;
+}
+
+.bannerContent {
+  position: absolute;
+  top: 50%;
+  left: 20px; /* Đẩy nội dung sát bên trái */
+  transform: translateY(-50%); /* Giữ lại chỉ transform theo chiều dọc để nội dung căn giữa theo chiều dọc */
+  text-align: left;
+  color: white;
+}
+
+.bannerTitle {
+  font-size: 68px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.bannerSubtitle {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.primaryButton {
+  background-color: white;
+  color: black;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.secondaryButton {
+  background-color: #28a745; /* Màu xanh lá */
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.primaryButton:hover, .secondaryButton:hover {
+  opacity: 0.8;
+}
+.header {
+  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://cdn.builder.io/api/v1/image/assets/TEMP/73697ede93124dea36ec63cd0d105c568819e769f86fa52d92e3a5690a5d212c?placeholderIfAbsent=true&apiKey=64a11f7ccf9c4f09a01cd9aadc1c5dac');
+  background-size: cover;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.navTabs {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.navTabs button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+.navTabs button.active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.sportsGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.sportItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.sportItem.selected {
+  border-color: #4CAF50;
+  background-color: #e8f5e9;
+}
+
+.sportIcon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.levelsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.levelButton {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+}
+
+.levelButton.selected {
+  border-color: #4CAF50;
+  background-color: #e8f5e9;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.formGroup input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.submitSection {
+  text-align: center;
+}
+
+.submitButton {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 40px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.feeText {
+  color: #666;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .sportsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .levelsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .sportsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .levelsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+.error {
+  color: #ff4d4f;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.formGroup input {
+  padding: 8px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #40a9ff;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}

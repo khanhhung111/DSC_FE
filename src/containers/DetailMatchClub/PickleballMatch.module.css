@@ -1,0 +1,17 @@
+.pickleballMatch {
+  border-radius: 4px;
+  background-color: #fff;
+  min-height: 1399px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.content {
+  padding: 20px;
+}
+
+@media (max-width: 991px) {
+  .pickleballMatch {
+    max-width: 100%;
+  }
+}

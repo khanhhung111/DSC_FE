@@ -1,0 +1,62 @@
+.cardGridTestimonials {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  padding: 20px;
+  flex-direction: column; /* Căn chỉnh theo chiều dọc */
+}
+
+.contentWrapper {
+  max-width: 1200px;
+  width: 100%;
+  text-align: left; /* Căn chỉnh nội dung bên trái */
+  padding-top: 10px; /* Padding top để đưa lên trên đầu trang */
+  padding-left: 10px; /* Padding left để có khoảng cách từ bên trái */
+}
+
+.heading {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.subheading {
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.sportContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sportList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px; /* Khoảng cách giữa các ô */
+  margin-bottom: 20px;
+}
+
+.sportItem {
+  background-color: #f0f0f0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.addButton {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  background-color: #45a049;
+}

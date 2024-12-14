@@ -1,0 +1,106 @@
+.LoginSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: Poppins, sans-serif;
+  }
+  
+  .title {
+    color: #333;
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  
+  .description {
+    color: rgba(102, 102, 102, 0.8);
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 40px;
+  }
+  
+  .form {
+    width: 100%;
+    max-width: 473px;
+  }
+  
+  .formGroup {
+    margin-bottom: 24px;
+  }
+  
+  .label {
+    display: block;
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  
+  .input {
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid rgba(102, 102, 102, 0.35);
+    padding: 16px;
+    font-size: 16px;
+  }
+  
+  .passwordWrapper {
+    position: relative;
+  }
+  
+  .showPasswordButton {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(102, 102, 102, 0.8);
+    font-size: 18px;
+  }
+  
+  .errorMessage {
+    color: #666;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  
+  .submitButton {
+    background-color: #111;
+    color: #fff;
+    border: none;
+    border-radius: 32px;
+    font-size: 21px;
+    font-weight: 500;
+    padding: 16px 70px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 250px;
+    margin-top: 40px;
+  }
+  
+  .loginPrompt {
+    margin-top: 8px;
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .loginLink {
+    color: #111;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  @media (max-width: 991px) {
+    .form {
+      max-width: 100%;
+    }
+  
+    .submitButton {
+      max-width: 100%;
+      padding: 16px 20px;
+    }
+  }

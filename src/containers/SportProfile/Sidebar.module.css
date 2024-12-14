@@ -1,0 +1,59 @@
+.profileCard { /* Kích thước card */
+  width: 33.33%;
+  padding: 70px;
+  background: #d4edda; /* Màu nền xanh lá cây nhạt */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Phân bố không gian giữa các phần tử */
+  align-items: center; /* Căn giữa các phần tử */
+  height: 100%; /* Đảm bảo card chiếm hết chiều cao */
+}
+
+.profileImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #a9dfbf;
+  transition: transform 0.2s;
+}
+
+.profileImage:hover {
+  transform: scale(1.05); /* Tăng kích thước ảnh khi hover */
+}
+
+.profileInfo {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #a9dfbf;
+  margin: 10px 0;
+}
+
+.userName {
+  font-size: 1.5rem; /* Tăng kích thước chữ */
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.logoutButton {
+  padding: 8px 12px;
+  font-size: 14px; /* Giảm kích thước chữ */
+  background-color: #ff4d4f; /* Màu nền nút */
+  color: white; /* Màu chữ */
+  border: none;
+  border-radius: 4px; /* Bo tròn các góc */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: auto; /* Đảm bảo nút có kích thước vừa phải */
+  margin-top: 20px; /* Khoảng cách với các phần tử trên */
+}
+
+.logoutButton:hover {
+  background-color: #ff7875; /* Màu nền khi hover */
+}

@@ -1,0 +1,36 @@
+.createEventButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  border-radius: 8px;
+  background-color: #4caf4f;
+  border: none;
+  color: #fff;
+  font-size: 28px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 40px;
+}
+
+.createEventButton:hover {
+  background-color: #45a049;
+}
+
+.buttonIcon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+.buttonText {
+  font-family: Roboto, sans-serif;
+}
+
+@media (max-width: 991px) {
+  .createEventButton {
+    font-size: 24px;
+    padding: 12px 24px;
+  }
+}

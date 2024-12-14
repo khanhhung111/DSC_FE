@@ -1,0 +1,92 @@
+.eventForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 23px;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+.input,
+.select,
+.textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.32);
+  font-size: 16px;
+}
+
+.textarea {
+  resize: vertical;
+}
+
+.costOptions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.costButton {
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  border: 1px solid rgba(217, 217, 217, 1);
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.costInputGroup {
+  display: flex;
+  align-items: center;
+}
+
+.costInput {
+  width: 80px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(217, 217, 217, 1);
+  font-size: 16px;
+}
+
+.costUnit {
+  margin-left: 5px;
+  font-size: 15px;
+}
+
+.radioGroup {
+  border: none;
+  padding: 0;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  font-size: 23px;
+}
+
+.radioInput {
+  margin-right: 10px;
+}
+
+@media (max-width: 991px) {
+  .label {
+    font-size: 20px;
+  }
+
+  .costButton,
+  .costInput {
+    padding: 8px 16px;
+    font-size: 24px;
+  }
+}

@@ -1,0 +1,62 @@
+.segmentedButtonBlock {
+    align-items: start;
+    color: #1d1b20;
+    display: flex;
+    font: 500 14px/20px Roboto, sans-serif;
+    justify-content: center;
+    letter-spacing: 0.1px;
+    min-height: 64px;
+    padding: 8px 16px;
+    text-align: center;
+  }
+  
+  .segmentedButton {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: -1px;
+    justify-content: center;
+    min-height: 48px;
+    min-width: 240px;
+    width: 516px;
+    font-size: 13px;
+  }
+  
+  .segment {
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid #797479;
+    color: #1d192b;
+    display: flex;
+    flex: 1;
+    font: inherit;
+    height: 100%;
+    justify-content: center;
+    min-height: 48px;
+    padding: 10px 12px;
+  }
+  
+  .segmentStart {
+    border-radius: 100px 0 0 100px;
+  }
+  
+  .segmentEnd {
+    border-radius: 0 100px 100px 0;
+  }
+  
+  .segment:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #4285f4;
+  }
+  
+  .segmentIcon {
+    margin-right: 8px;
+    width: 18px;
+    height: 18px;
+  }
+  
+  @media (max-width: 991px) {
+    .segmentedButton {
+      max-width: 100%;
+    }
+  }

@@ -1,0 +1,74 @@
+.LoginPage {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .content {
+    display: flex;
+    width: 100%;
+  }
+  
+  .imageColumn {
+    width: 54%;
+  }
+  
+  .LoginImage {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  .formColumn {
+    width: 46%;
+    padding: 74px 80px;
+  }
+  
+  @media (max-width: 991px) {
+    .content {
+      flex-direction: column;
+    }
+  
+    .imageColumn,
+    .formColumn {
+      width: 100%;
+    }
+  
+    .formColumn {
+      padding: 40px 20px;
+    }
+  }
+  .socialLogin {
+    margin-top: 24px;
+  }
+  
+  .socialButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 316px;
+    border-radius: 40px;
+    background-color: #fff;
+    border: 1px solid #333;
+    padding: 16px;
+    margin-bottom: 24px;
+    cursor: pointer;
+    font-size: 23px;
+    color: #333;
+    font-weight: 400;
+  }
+  
+  .socialIcon {
+    width: 32px;
+    height: 32px;
+    margin-right: 16px;
+  }
+  
+  @media (max-width: 991px) {
+    .socialButton {
+      max-width: 100%;
+      padding: 16px 20px;
+    }
+  }

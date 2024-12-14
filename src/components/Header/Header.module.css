@@ -1,0 +1,92 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 19px 100px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(171, 190, 209, 0.4);
+    font: 500 20px Inter, sans-serif;
+  }
+  
+  .navigation {
+    display: flex;
+    gap: 18px;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 38px;
+    color: #000;
+    font-weight: 700;
+  }
+  
+  .logoImage {
+    width: 74px;
+    height: 74px;
+    object-fit: contain;
+  }
+  
+  .logoText {
+    margin-left: 2px;
+  }
+  
+  .authButtons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  @media (max-width: 991px) {
+    .header {
+      padding: 19px 20px;
+    }
+  }
+
+  .button {
+    border-radius: 3px;
+    padding: 14px 8px;
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .primary {
+    background-color: #4caf4f;
+    color: #fff;
+    border: none;
+  }
+  
+  .secondary {
+    background-color: #fff;
+    color: #4caf4f;
+    border: 1px solid #4caf4f;
+  }
+  
+  .primary:hover {
+    background-color: #45a049;
+  }
+  
+  .secondary:hover {
+    background-color: #f0f0f0;
+  }
+
+  .userContainer {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+  }
+  
+  .logoIcon {
+    width: 50px; /* Kích thước avatar, bạn có thể điều chỉnh */
+    height: 50px;
+    border-radius: 50%; /* Tạo avatar dạng tròn */
+    margin-right: 10px; /* Khoảng cách giữa avatar và tên */
+  }
+  
+  .userName {
+    font-size: 16px; /* Kích thước chữ */
+    font-weight: 500; /* Độ dày chữ */
+  }
+  

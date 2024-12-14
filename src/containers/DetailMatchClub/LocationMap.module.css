@@ -1,0 +1,23 @@
+.locationMap {
+  margin-top: 20px;
+}
+
+.locationTitle,
+.activityTitle {
+  font-size: 22px;
+  color: #1d1b20;
+  margin-bottom: 10px;
+}
+
+.mapImage {
+  width: 100%;
+  max-width: 1117px;
+  height: auto;
+  margin-bottom: 20px;
+}
+.mapContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem; /* Thêm khoảng cách giữa tiêu đề và hình ảnh */
+  padding-bottom: 50px;
+}

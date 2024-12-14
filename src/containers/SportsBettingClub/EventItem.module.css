@@ -1,0 +1,78 @@
+.eventItem {
+    display: flex;
+    min-height: 88px;
+    width: 100%;
+    margin-bottom: 33px;
+    padding: 12px 16px;
+  }
+  
+  .eventImage {
+    aspect-ratio: 1.46;
+    object-fit: contain;
+    width: 164px;
+    max-width: 100%;
+  }
+  
+  .eventContent {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-left: 16px;
+  }
+  
+  .eventType {
+    color: #1d1b20;
+    display: flex;
+    align-items: center;
+    font: 400 22px/28px Roboto, sans-serif;
+    letter-spacing: 0;
+    margin: 0;
+  }
+  
+  .eventIcon {
+    margin-right: 8px;
+    font-size: 22px;
+  }
+  
+  .eventTitle {
+    color: #1d1b20;
+    font: 400 22px/28px Roboto, sans-serif;
+    letter-spacing: 0;
+    margin: 8px 0;
+  }
+  
+  .eventLevel,
+  .eventLocation,
+  .eventParticipants {
+    color: #49454f;
+    font: 400 14px/20px Roboto, sans-serif;
+    letter-spacing: 0.25px;
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .locationIcon,
+  .participantsIcon {
+    width: 21px;
+    height: 19px;
+    margin-right: 4px;
+  }
+  
+  .moreButton {
+    align-self: flex-start;
+    background: none;
+    border: none;
+    color: #007aff;
+    cursor: pointer;
+    font: 400 14px/20px Roboto, sans-serif;
+    letter-spacing: 0.25px;
+    padding: 0;
+    margin-top: 8px;
+  }
+  
+  @media (max-width: 991px) {
+    .eventItem {
+      max-width: 100%;
+    }
+  }

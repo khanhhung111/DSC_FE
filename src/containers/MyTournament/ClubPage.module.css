@@ -1,0 +1,33 @@
+
+.clubPage {
+  border-radius: 28px 28px 0 0;
+  background-color: #fff;
+  z-index: 10;
+  display: flex;
+  width: 100%;
+  padding-bottom: 77px;
+  flex-direction: column;
+}
+
+.clubListSection {
+  position: relative;
+  display: flex;
+  margin-top: 153px;
+  width: 100%;
+  max-width: 1240px;
+  flex-direction: column;
+  justify-content: start;
+  padding: 0 8px;
+  align-self: center;
+}
+
+@media (max-width: 991px) {
+  .clubPage {
+    max-width: 100%;
+  }
+
+  .clubListSection {
+    max-width: 100%;
+    margin-top: 40px;
+  }
+}

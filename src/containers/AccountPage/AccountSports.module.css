@@ -1,0 +1,113 @@
+.accountPage {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .contentWrapper {
+    display: flex;
+    width: 100%;
+  }
+  
+  .sidebar {
+    width: 34%;
+  }
+  
+  .mainContent {
+    width: 66%;
+  }
+  
+  .accountSection {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 64px;
+  }
+  
+  .sectionHeader {
+    margin-bottom: 48px;
+  }
+  
+  .heading {
+    color: var(--sds-color-text-default-default);
+    font: var(--sds-typography-heading-font-weight) var(--sds-typography-heading-size-base) var(--sds-typography-heading-font-family);
+    letter-spacing: -0.48px;
+
+    font-size: 26px;
+    font-weight: bold;
+  }
+  
+  .subheading {
+    color: var(--sds-color-text-default-secondary);
+    font: var(--sds-typography-subheading-font-weight) var(--sds-typography-subheading-size-medium) var(--sds-typography-subheading-font-family);
+    margin-top: 8px;
+    line-height: 22px;
+    font-size: 18px;
+  }
+  
+  .cardGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 30px; /* Khoảng cách giữa các card */
+  }
+  
+  .card {
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    flex: 1 1 300px;
+    min-width: 300px;
+    padding: 24px;
+     /* Thêm con trỏ dạng pointer */
+    transition: background-color 0.3s ease;
+  }
+  .card:nth-child(3) {
+    flex: 1 1 100%;
+  }
+  
+  .cardTitle {
+    color: var(--sds-color-text-default-default);
+    font: var(--sds-typography-heading-font-weight) var(--sds-typography-heading-size-base) var(--sds-typography-heading-font-family);
+    letter-spacing: -0.48px;
+    /* margin-bottom: 24px; */
+    font-size: 24px;
+    text-align: center;
+    /* font-weight: bold; */
+  }
+  
+  .cardDescription {
+    color: var(--sds-color-text-default-secondary);
+    font: var(--sds-typography-body-font-weight-strong) var(--sds-typography-body-size-medium) var(--sds-typography-body-font-family);
+    line-height: 22px;
+    font-size: 18px;
+  }
+  
+  @media (max-width: 991px) {
+    .accountPage {
+      padding-top: 100px;
+    }
+  
+    .contentWrapper {
+      flex-direction: column;
+    }
+  
+    .sidebar,
+    .mainContent {
+      width: 100%;
+    }
+  
+    .accountSection {
+      padding: 0 20px 100px;
+    }
+  
+    .cardGrid {
+      margin-top: 40px;
+    }
+  
+    .card {
+      padding: 0 20px;
+    }
+  }

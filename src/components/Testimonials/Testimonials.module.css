@@ -1,0 +1,34 @@
+.testimonials {
+    background-color: #fff;
+    padding: 54px 64px;
+  }
+  
+  .header {
+    max-width: 408px;
+    margin-bottom: 48px;
+  }
+  
+  .heading {
+    color: var(--sds-color-text-default-default);
+    font: var(--sds-typography-heading-font-weight) var(--sds-typography-heading-size-base) var(--sds-typography-heading-font-family);
+    letter-spacing: -0.48px;
+  }
+  
+  .subheading {
+    color: var(--sds-color-text-default-secondary);
+    font: var(--sds-typography-subheading-font-weight) var(--sds-typography-subheading-size-medium) var(--sds-typography-subheading-font-family);
+    margin-top: 8px;
+  }
+  
+  .cardGrid {
+    display: flex;
+    gap: 48px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  @media (max-width: 991px) {
+    .testimonials {
+      padding: 54px 20px;
+    }
+  }

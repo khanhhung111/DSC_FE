@@ -1,0 +1,96 @@
+
+.heroSection {
+  display: flex;
+  min-height: 224px;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroContent {
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 38px 28px;
+}
+
+.heroTitle {
+  color: #fff;
+  font-weight: 600;  /* Bold text */
+  font-size: 45px;
+  line-height: 1;
+  font-family: Roboto, sans-serif;
+  position: absolute;   /* Make it absolutely positioned */
+  bottom: 80px;         /* Adjust this value to control distance from the bottom */
+  left: 10%;            /* Horizontal positioning */
+  transform: translateX(-50%);
+}
+
+.heroNav {
+  display: flex;
+  margin-top: 11px;
+  width: 465px;
+  max-width: 100%;
+  gap: 20px;
+  color: var(--Schemes-On-Surface, #1d1b20);
+  text-align: center;
+  letter-spacing: 0.1px;
+  font-weight: 500;  /* Semi-bold text */
+  font-size: 14px;
+  line-height: 20px;
+  font-family: Roboto, sans-serif;
+
+  position: absolute;   /* Position near bottom */
+  bottom: 20px;         /* Adjust distance from bottom */
+  left: 15%;            /* Horizontal positioning */
+  transform: translateX(-50%);  /* Correct centering */
+}
+
+.navButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 6px 16px 6px 8px;
+  background: var(--Schemes-Surface-Container-Low, #f7f2fa);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+  color: #0c0c0c;
+  font-weight: 500;  /* Semi-bold button text */
+  border: none;
+  cursor: pointer;
+}
+
+
+
+.navButton.active {
+  background: var(--Colors-Green, #34c759);
+}
+
+.heroImage {
+  aspect-ratio: 6.41;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+@media (max-width: 991px) {
+  .heroContent {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+
+  .heroTitle {
+    font-size: 40px;
+  }
+}
