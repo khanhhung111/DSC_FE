@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -29,10 +29,12 @@ jobs:
 
       - name: Build and Test
         run: |
-          $env:CI="false"
+          npx browserslist@latest --update-db
+          npm install @babel/plugin-proposal-private-property-in-object --save-dev
+          CI='' npm run build --if-present
           npm run build --if-present
           npm run test --if-present
-      
+          
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
