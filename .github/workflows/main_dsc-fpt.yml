@@ -31,18 +31,19 @@ jobs:
           rm -rf node_modules package-lock.json
           npm cache clean --force
 
-      - name: Install core dependencies
+      - name: Install dependencies
         run: |
-          npm install react@18.2.0 react-dom@18.2.0 --save --force
-          npm install @testing-library/react@13.4.0 --save-dev --force
+          npm install --legacy-peer-deps
+          npm install ajv@^8.0.0 --save
+          npm install ajv-keywords@^5.0.0 --save
+          npm install schema-utils@^4.0.0 --save-dev
+          npm install terser-webpack-plugin@^5.0.0 --save-dev
+          npm install react-scripts@5.0.1 --save-dev
 
-      - name: Install remaining dependencies
+      - name: Install additional dependencies
         run: |
-          npm install --legacy-peer-deps --force
-          npm install react-scripts@5.0.1 --save-dev --force
-
-      - name: Install babel plugin
-        run: npm install @babel/plugin-proposal-private-property-in-object --save-dev --force
+          npm install @babel/plugin-proposal-private-property-in-object --save-dev
+          npm install @babel/runtime --save
 
       - name: Update browserslist
         run: npx update-browserslist-db@latest
@@ -50,7 +51,9 @@ jobs:
       - name: Build
         env:
           CI: false
-        run: npm run build --if-present
+        run: |
+          npm rebuild
+          npm run build --if-present
 
       - name: Test
         run: npm run test --if-present -- --passWithNoTests
