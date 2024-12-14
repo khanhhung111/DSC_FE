@@ -21,17 +21,20 @@ jobs:
         with:
           node-version: '18.x'
 
+      - name: Clean npm cache
+        run: npm cache clean --force
+
       - name: Install dependencies
         run: |
-          npm install --legacy-peer-deps
-          npm install react-scripts --save-dev
+          rm -rf node_modules package-lock.json
+          npm install --legacy-peer-deps --force
+          npm install react-scripts --save-dev --force
 
       - name: Build and Test
         run: |
           npx browserslist@latest --update-db
           npm install @babel/plugin-proposal-private-property-in-object --save-dev
           CI='' npm run build --if-present
-          npm run build --if-present
           npm run test --if-present
           
       - name: Upload artifact for deployment job
