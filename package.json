@@ -67,7 +67,10 @@
   "jest": {
     "transformIgnorePatterns": [
       "node_modules/(?!axios)"
-    ]
+    ],
+    "transformIgnorePatterns": [
+    "node_modules/(?!react-toastify)"
+  ]
   },
   "devDependencies": {
     "react-router-dom": "^6.20.1",
