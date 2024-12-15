@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import styles from './Header.module.css';
-import NavigationPill from '../NavigationPill/NavigationPill';
-import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
+import styles from './Header.module.css';
 
 const navItems = [
   { text: 'Kèo thể thao', path: '/sportbetting' },
@@ -23,21 +21,16 @@ function Header() {
       const loginStatus = localStorage.getItem('isLoggedIn') === 'true';
       const fullname = localStorage.getItem('fullName');
       const email = localStorage.getItem('userEmail');
-      const avatars = localStorage.getItem('avatar'); // Get avatar from localStorage
+      const avatars = localStorage.getItem('avatar');
 
       setIsLoggedIn(loginStatus);
       setUserEmail(email || '');
       setUserFullName(fullname || '');
-      if (avatars && avatars !== 'null' && avatars !== '') {
-        setAvatar(avatars); // Chỉ set nếu avatar có giá trị hợp lệ
-      } else {
-        setAvatar(null); // Nếu không có ảnh thì để null
-      }
+      setAvatar(avatars && avatars !== 'null' && avatars !== '' ? avatars : null);
     };
 
     checkLoginStatus();
-
-    window.addEventListener('storage', checkLoginStatus); // Listen for changes to localStorage
+    window.addEventListener('storage', checkLoginStatus);
 
     return () => {
       window.removeEventListener('storage', checkLoginStatus);
@@ -53,50 +46,66 @@ function Header() {
     setIsLoggedIn(false);
     setUserEmail('');
     setUserFullName('');
-    setAvatar(null); // Reset avatar
+    setAvatar(null);
     navigate('/login');
+  };
+
+  const handleNavClick = (path) => {
+    if (isLoggedIn) {
+      navigate(path);
+    } else {
+      navigate('/login');
+    }
   };
 
   return (
     <header className={styles.header}>
       <nav className={styles.navigation}>
-      {navItems.map((item, index) => (
-        <NavigationPill 
-          key={index} 
-          text={item.text} 
-          onClick={() => navigate(item.path)} 
-        />
+        {navItems.map((item, index) => (
+          <button
+            key={index}
+            className={styles.navButton}
+            onClick={() => handleNavClick(item.path)}
+          >
+            {item.text}
+          </button>
         ))}
       </nav>
       <div className={styles.logo}>
-        <img 
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/2bd87701f8e5de31409290c62870400ced251ecd3f5895c6c336318f1e3231eb?placeholderIfAbsent=true&apiKey=64a11f7ccf9c4f09a01cd9aadc1c5dac" 
-          alt="DSC Logo" 
-          className={styles.logoImage} 
+        <img
+          src="https://cdn.builder.io/api/v1/image/assets/TEMP/2bd87701f8e5de31409290c62870400ced251ecd3f5895c6c336318f1e3231eb?placeholderIfAbsent=true&apiKey=64a11f7ccf9c4f09a01cd9aadc1c5dac"
+          alt="DSC Logo"
+          className={styles.logoImage}
           onClick={() => navigate('/')}
           style={{ cursor: 'pointer' }}
         />
         <span className={styles.logoText}>DSC</span>
       </div>
-
       {isLoggedIn ? (
         <div className={styles.userContainer}>
-          {/* Use default avatar if avatar is null */}
           <img
-        src={avatar || "https://cdn.builder.io/api/v1/image/assets/TEMP/6bc8d1ef7ef6beb9a8f62d9a9760725d3ae3ce0003da0601a02b4778efb767c8?placeholderIfAbsent=true&apiKey=64a11f7ccf9c4f09a01cd9aadc1c5dac"} 
-        alt="1Avatar1"
-            className={styles.logoIcon}
+            src={
+              avatar ||
+              'https://cdn.builder.io/api/v1/image/assets/TEMP/6bc8d1ef7ef6beb9a8f62d9a9760725d3ae3ce0003da0601a02b4778efb767c8?placeholderIfAbsent=true&apiKey=64a11f7ccf9c4f09a01cd9aadc1c5dac'
+            }
+            alt="Avatar"
+            className={styles.avatar}
             onClick={() => navigate('/account')}
             style={{ cursor: 'pointer' }}
           />
           <span className={styles.userName}>{userFullName}</span>
-          {/* Uncomment to add logout button */}
-          {/* <Button onClick={handleLogout} variant="secondary">Đăng xuất</Button> */}
         </div>
       ) : (
         <div className={styles.authButtons}>
-          <Button onClick={() => navigate('/signup')}>Đăng ký</Button>
-          <Button onClick={() => navigate('/login')} variant="secondary">Đăng nhập</Button>
+          <button className={styles.signupButton} onClick={() => navigate('/signup')}>
+            Đăng ký
+          </button>
+          <button
+            className={styles.loginButton}
+            onClick={() => navigate('/login')}
+          >
+            Đăng nhập
+          </button>
         </div>
       )}
     </header>
