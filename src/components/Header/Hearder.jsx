@@ -5,10 +5,10 @@ import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
 
 const navItems = [
-  { text: 'Kèo thể thao', href: '/sportbetting' },
-  { text: 'Giải đấu', href: '/createTournament' },
-  { text: 'Câu lạc bộ', href: '/club' },
-  { text: 'Thông báo', href: '#' },
+  { text: 'Kèo thể thao', path: '/sportbetting' },
+  { text: 'Giải đấu', path: '/createTournament' },
+  { text: 'Câu lạc bộ', path: '/club' },
+  { text: 'Thông báo', path: '#' },
 ];
 
 function Header() {
@@ -60,8 +60,12 @@ function Header() {
   return (
     <header className={styles.header}>
       <nav className={styles.navigation}>
-        {navItems.map((item, index) => (
-          <NavigationPill key={index} text={item.text} href={item.href} />
+      {navItems.map((item, index) => (
+        <NavigationPill 
+          key={index} 
+          text={item.text} 
+          onClick={() => navigate(item.path)} 
+        />
         ))}
       </nav>
       <div className={styles.logo}>
