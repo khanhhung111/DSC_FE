@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './NavigationPill.module.css';
 
-function NavigationPill({ text, href }) {
+function NavigationPill({ text, onClick }) {
   return (
-    <a href={href} className={styles.navigationPill}>
+    <button className={styles.pill} onClick={onClick}>
       {text}
-    </a>
+    </button>
   );
 }
 
