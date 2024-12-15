@@ -3,8 +3,9 @@ import styles from './AccountDetails.module.css';
 import { getMySport } from "../../utils/profile";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useNavigate } from 'react-router-dom';
 function AccountDetails() {
+  const navigate = useNavigate();
   const [sports, setSports] = useState([]);
   const [loading, setLoading] = useState(true);
   const userId = localStorage.getItem('userId');
@@ -32,7 +33,7 @@ function AccountDetails() {
 
   const handleAddClick = () => {
     // Điều hướng đến trang thêm mới thể thao
-    window.location.href = "/add-sport";
+    navigate('/add-sport');
   };
 
   return (
