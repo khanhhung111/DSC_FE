@@ -106,7 +106,7 @@
     border-radius: 5px;
     position: absolute; /* Đặt vị trí tuyệt đối */
     right: 20px; /* Căn sang phải với khoảng cách 20px */
-    top: 50%; /* Căn giữa theo chiều dọc, bạn có thể thay đổi nếu muốn */
+    top: 47%; /* Căn giữa theo chiều dọc, bạn có thể thay đổi nếu muốn */
     transform: translateY(-50%); /* Đảm bảo nút nằm giữa theo chiều dọc */
   }
   

@@ -7,10 +7,11 @@ import LocaleProvider from 'antd/es/locale';
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createTournament,createPayment,setPayment,deleteTournament } from "../../utils/tournament"
+import { createTournament,createPayment,setPayment,deleteTournament,getAllTournamentNames,PaymentforTournament } from "../../utils/tournament"
 const TournamentForm = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [existingNames, setExistingNames] = useState([]);
   const [selectedSport, setSelectedSport] = useState(null);
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -37,8 +38,6 @@ const TournamentForm = () => {
     { id: 2, name: 'Bóng chuyền', icon: '🏐' },
     { id: 3, name: 'Bóng rổ', icon: '🏀' },
     { id: 4, name: 'Cầu lông', icon: '🏸' },
-    { id: 5, name: 'Pickleball', icon: '🏓' },
-    { id: 6, name: 'Bida', icon: '🎱' },
   ];
 
   const levels = [
@@ -48,19 +47,42 @@ const TournamentForm = () => {
   ];
 
   const userId = localStorage.getItem('userId'); // Retrieve UserId from localStorage
+  useEffect(() => {
+    // Lấy tất cả tên giải đấu từ API khi component được mount
+    const fetchTournamentNames = async () => {
+      try {
+        const response = await getAllTournamentNames(); // API gọi để lấy danh sách tên giải đấu
+        const normalizedNames = response.data.$values.map(name => name.toLowerCase()); // Chuyển tất cả tên thành chữ thường
+        console.log('Danh sách tên giải đấu đã chuyển thành chữ thường:', normalizedNames); // Kiểm tra danh sách đã chuyển
+        setExistingNames(normalizedNames); // Lưu vào state
+      } catch (error) {
+        console.error('Lỗi khi lấy tên giải đấu:', error);
+      }
+    };
+
+    fetchTournamentNames();
+  }, []);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
-      levelId: selectedLevel !== null ? levels[selectedLevel].id : null,
       ...formData,
       [name]: value
     });
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors({
-        ...errors,
-        [name]: ''
-      });
+
+    // Kiểm tra xem tên giải đấu có trùng không
+    if (name === 'Name') {
+      const normalizedValue = value.toLowerCase(); // Chuyển tên nhập vào thành chữ thường
+      if (existingNames.includes(normalizedValue)) {
+        setErrors({
+          ...errors,
+          Name: 'Tên giải đấu đã tồn tại, vui lòng chọn tên khác'
+        });
+      } else {
+        setErrors({
+          ...errors,
+          Name: ''
+        });
+      }
     }
   };
   const handleImageChange = (e) => {
@@ -142,6 +164,7 @@ const TournamentForm = () => {
         const responsePayment = await setPayment(params);
         console.log(responsePayment);
         if (responsePayment.message === "Success" && responsePayment.rspCode) {
+          await PaymentforTournament();
           toast.success("Tạo giải đấu thành công.", {
             autoClose: 1000,
           });
@@ -170,14 +193,21 @@ const TournamentForm = () => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const isNameExist = existingNames.includes(formData.Name.toLowerCase());
+  
+    if (isNameExist) {
+      // Nếu tên trùng, hiển thị thông báo lỗi và không gọi API
+      toast.error('Tên giải đấu đã tồn tại!');
+      return;
+    }
+  
     if (!validateForm()) {
       return;
     }
-
+  
     // Format startTime to combine date and time
     const startDateTime = `${formData.startDate}T${formData.startTime}:00`; // Format: "YYYY-MM-DDThh:mm:ss"
-
+  
     const tournamentData = {
       sportId: selectedSport,
       LevelId: levels[selectedLevel].id,
@@ -191,35 +221,51 @@ const TournamentForm = () => {
       startTime: startDateTime,
       numberOfParticipants: formData.numberOfParticipants,
       registrationDeadline: formData.registrationDeadline,
-      // Sử dụng định dạng đã format
     };
-
+  
     console.log('TournamentData:', selectedFile);
+  
+    let createdTournamentId = null;
     try {
       const responseTournament = await createTournament({
         tournamentData,
         file: selectedFile
       });
-        console.log("tournamentId",responseTournament.data.tournamentId)
-        if(responseTournament.data.tournamentId){
-          const TournamentId = responseTournament.data.tournamentId;
-          const Amount = 200000;
-          const response = await createPayment(TournamentId,Amount)
-            if (response.data){
-              window.location.href =response.data;
-            }
-            else {
-              toast.error(response.data.message || 'Có lỗi xảy ra');
-            }
-        }else {
+  
+      console.log("tournamentId", responseTournament.data.tournamentId);
+      
+      if (responseTournament.data.tournamentId) {
+        createdTournamentId = responseTournament.data.tournamentId;
+        const Amount = 200000;
+        const response = await createPayment(createdTournamentId, Amount);
+        
+        if (response.data) {
+          // Redirect to VNPay payment page
+          window.location.href = response.data;
+          
+          // Lắng nghe sự kiện beforeunload khi người dùng thoát khỏi trang
+          window.addEventListener('beforeunload', async () => {
+            // Nếu người dùng chưa thanh toán và đang thoát trang
+            await deleteTournament(createdTournamentId);
+          });
+        } else {
+          toast.error(response.data.message || 'Có lỗi xảy ra');
+          // If payment link is not available, delete tournament
+          await deleteTournament(createdTournamentId);
+        }
+      } else {
         toast.error(responseTournament.data.message || 'Có lỗi xảy ra');
       }
     } catch (error) {
       console.error('Error creating tournament:', error);
       toast.error(error.responseTournament?.data?.message || 'Không thể tạo giải đấu');
+      
+      // If error occurs, make sure tournament is deleted
+      if (createdTournamentId) {
+        await deleteTournament(createdTournamentId);
+      }
     }
   };
-
   console.log("previewUrl", previewUrl)
   return (
     <div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './EventItem.module.css';
 import { useNavigate } from 'react-router-dom';
-
+import {dateFormatting} from '../../utils/formatHelper'
 const EventItem = ({ activityId,activityName, levelname, location, numberOfTeams, image, startDate }) => {
   const navigate = useNavigate();
   
@@ -45,7 +45,7 @@ const EventItem = ({ activityId,activityName, levelname, location, numberOfTeams
 
         {/* Start Date (Optional) */}
         <p className={styles.eventDate}>
-          Ngày bắt đầu: {new Date(startDate).toLocaleDateString()}
+          Ngày bắt đầu: {dateFormatting(startDate)}
         </p>
       </div>
       <button className={styles.moreButton} onClick={() => handleButtonClick()}>More</button>

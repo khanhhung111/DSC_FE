@@ -101,6 +101,13 @@ const searchByNameClub = (name) =>
       path: `/admin/searchClub?q=${name}`,
     }),
   );
+const searchByNameTournament = (name) =>
+    axios(
+      configuration({
+        method: "get",
+        path: `/admin/searchTournament?q=${name}`,
+      }),
+    );
 const stopClub = (clubId) => {
   return axios(
     configuration({
@@ -201,5 +208,6 @@ export {
   stopClub,
   updateInfoCustomer,
   getTotalUsersActive,
-  getFundAdmin
+  getFundAdmin,
+  searchByNameTournament  
 };

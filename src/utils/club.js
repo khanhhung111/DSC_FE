@@ -181,8 +181,16 @@ const getrequestJoinClub = (clubId) =>
       .then((result) => result)
       .catch((error) => error);
   };
-
-  
+  const getAllClubNames = () =>{
+    return axios(
+      configuration({
+        method: "get",
+        path: "/Club/getAllClubNames",
+      })
+    )
+      .then((result) => result)
+      .catch((error) => error);
+  };
 export {
     getAllClub,
     getDetailClub,
@@ -198,5 +206,6 @@ export {
     stopClub,
     activateClub,
     getMyClubJoined,
-    outClub
+    outClub,
+    getAllClubNames
   };

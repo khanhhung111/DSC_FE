@@ -197,7 +197,26 @@ const setPayment = async (params) => {
     throw error;
   }
 };
-
+const getAllTournamentNames = () =>{
+  return axios(
+    configuration({
+      method: "get",
+      path: "/Tournament/getAllTournamentNames",
+    })
+  )
+    .then((result) => result)
+    .catch((error) => error);
+};
+const PaymentforTournament = () =>{
+  return axios(
+    configuration({
+      method: "post",
+      path: "/Tournament/PaymentforTournament",
+    })
+  )
+    .then((result) => result)
+    .catch((error) => error);
+}
 
   
     // axios(
@@ -224,5 +243,7 @@ export {
   updateTounarment,
   createPayment,
   setPayment,
-  saveTournamentResultsTemp
+  saveTournamentResultsTemp,
+  getAllTournamentNames,
+  PaymentforTournament
 };

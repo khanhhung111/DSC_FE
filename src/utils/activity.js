@@ -182,6 +182,17 @@ const getrequestJoinActivity = (activityId) =>
       .then((result) => result)
       .catch((error) => error);
   };
+  const getNameActivity = () =>{
+    return axios(
+      configuration({
+        method: "get",
+        path: "/Activity/getNameActivity",
+      })
+    )
+      .then((result) => result)
+      .catch((error) => error);
+  };
+
   
 export {
     getAllActivity,
@@ -201,5 +212,6 @@ export {
     getMemberActivityClub,
     createActivityClub,
     JoinActivityClub,
-    getInforJoinned
+    getInforJoinned,
+    getNameActivity
   };

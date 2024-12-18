@@ -129,8 +129,8 @@
 
 .sportsGrid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 15px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
   margin-top: 15px;
 }
 
@@ -242,7 +242,7 @@
 }
 .error {
   color: #ff4d4f;
-  font-size: 12px;
+  font-size: 16px;
   margin-top: 4px;
   display: block;
 }

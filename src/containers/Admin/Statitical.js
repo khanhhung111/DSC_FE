@@ -3,7 +3,7 @@ import { Card, Row, Col, Statistic, DatePicker, Table, Typography, List } from '
 import { ArrowUpOutlined, ArrowDownOutlined, TrophyOutlined } from '@ant-design/icons';
 import { getTournamentbyMonth, getTotalTournaments, getTotalUsers, getTotalUsersActive,getFundAdmin } from '../../utils/admin';
 import dayjs from 'dayjs'; // Import dayjs
-
+import {amountFormatting} from "../../utils/formatHelper";
 const { Title } = Typography;
 
 const Statitical = () => {
@@ -19,12 +19,21 @@ const Statitical = () => {
     try {
       let formattedDate = '';
       if (date) {
-        // Nếu có chọn tháng, format theo tháng
         formattedDate = date.format('YYYY-MM');
       }
   
       // Gọi API: Nếu không có formattedDate -> get tất cả tournaments
       const res = await getTournamentbyMonth(formattedDate || undefined);
+  
+      if (res?.data?.message === "No tournaments found.") {
+        // Nếu không có giải đấu, set dữ liệu là 0 và thông báo cho người dùng
+        setTournamentData({
+          total: 0,
+          list: [],
+        });
+        return; // Dừng lại không xử lý thêm dữ liệu
+      }
+  
       const tournaments = res?.data?.$values || [];
   
       const formattedTournaments = tournaments.map((tournament) => {
@@ -40,7 +49,12 @@ const Statitical = () => {
           status = 'Đang diễn ra';
         } else if (validEndDate.isBefore(currentDate)) {
           status = 'Đã kết thúc';
+        } else if (startDate.isSame(currentDate, 'day')) {
+          status = 'Bắt đầu hôm nay'; // Nếu ngày bắt đầu bằng ngày hiện tại
+        } else if (validEndDate.isSame(currentDate, 'day')) {
+          status = 'Kết thúc hôm nay'; // Nếu ngày kết thúc bằng ngày hiện tại
         }
+        
   
         return {
           id: tournament.tournamentId,
@@ -58,8 +72,14 @@ const Statitical = () => {
       });
     } catch (error) {
       console.error('Lỗi khi gọi API:', error);
+      // Nếu xảy ra lỗi khác, bạn có thể hiển thị thông báo lỗi cho người dùng
+      setTournamentData({
+        total: 0,
+        list: [],
+      });
     }
   };
+  
   
   const fetchTotalData = async () => {
     try {
@@ -113,6 +133,18 @@ const Statitical = () => {
       title: 'Trạng thái',
       dataIndex: 'status',
       key: 'status',
+      render: (status) => {
+        let color = '';
+        if (status === 'Sắp bắt đầu') {
+          color = 'orange'; // Màu vàng cho "Sắp bắt đầu"
+        } else if (status === 'Đang diễn ra' || status === 'Bắt đầu hôm nay') {
+          color = 'green'; // Màu xanh lá cho "Đang diễn ra" hoặc "Bắt đầu hôm nay"
+        } else {
+          color = 'red'; // Màu đỏ cho các trạng thái còn lại
+        }
+  
+        return <span style={{ color }}>{status}</span>;
+      },
     },
     {
       title: 'Số đội tham gia',
@@ -120,6 +152,7 @@ const Statitical = () => {
       key: 'participants',
     },
   ];
+  
 
   return (
     <div style={{ padding: 24 }}>
@@ -138,19 +171,17 @@ const Statitical = () => {
         <Col span={6}>
           <Card>
             <Statistic
-              title="Total Sales"
-              value={totalFund}
-              precision={0}
+              title="Tổng Doanh Thu"
+              value={amountFormatting(totalFund)}
               valueStyle={{ color: '#3f8600' }}
               prefix={<ArrowUpOutlined />}
-              suffix="%"
             />
           </Card>
         </Col>
         <Col span={6}>
           <Card>
             <Statistic
-              title="Active Users"
+              title="Người Dùng Hoạt Động"
               value={(totalUsersActive / totalUsers) * 100}
               precision={0}
               valueStyle={{
@@ -185,13 +216,18 @@ const Statitical = () => {
       </Row>
 
       <Card title="Danh sách giải đấu trong tháng" style={{ marginBottom: 24 }}>
-        <Table
-          columns={tournamentColumns}
-          dataSource={tournamentData.list}
-          rowKey="id"
-          pagination={{ pageSize: 3 }}
-        />
-      </Card>
+  <Table
+    columns={tournamentColumns}
+    dataSource={tournamentData.list}
+    rowKey="id"
+    pagination={{ pageSize: 3 }}
+  />
+  {tournamentData.total === 0 && (
+    <div style={{ textAlign: 'center', marginTop: 16 , color:'red', fontSize:'24px'}}>
+      <p>Không có giải đấu trong tháng này.</p>
+    </div>
+  )}
+</Card>
 
       <Row gutter={16}>
         <Col span={12}>

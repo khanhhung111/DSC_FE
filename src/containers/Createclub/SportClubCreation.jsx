@@ -1,12 +1,12 @@
 import React, { useState, useRef } from "react";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import styles from "./SportClubCreation.module.css";
-import { useNavigate,useLocation} from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import HeaderLogin from "../../components/Header/Hearder";
 import HeroSection from "../Club/HeroSection";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // CSS mặc định của Quill
-import { createClub } from "../../utils/club"
+import { createClub, getAllClubNames } from "../../utils/club"
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -21,13 +21,13 @@ function SportClubCreation() {
   const userId = localStorage.getItem('userId');
   const [selectedFile, setSelectedFile] = useState(null);
   const [errors, setErrors] = useState({});
+  const [existingClubNames, setExistingClubNames] = useState([]);
+
   const sports = [
     { emoji: "⚽", name: "Bóng đá", value: 1 },
     { emoji: "🏐", name: "Bóng chuyền", value: 2 },
     { emoji: "🏀", name: "Bóng rổ", value: 3 },
     { emoji: "🏸", name: "Cầu lông", value: 4 },
-    { emoji: "🥒", name: "Pickleball", value: 5 },
-    { emoji: "🎱", name: "Bida", value: 6 },
   ];
   const [sendformData, setFormData] = useState({
     userId: userId,
@@ -42,8 +42,35 @@ function SportClubCreation() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Kiểm tra xem tên câu lạc bộ có trùng không
+    if (name === 'clubName') {
+      checkClubNameExist(value);
+    }
   };
 
+  const checkClubNameExist = async (clubName) => {
+    try {
+      const response = await getAllClubNames(); // Gọi API để lấy tất cả tên câu lạc bộ
+      // const existingNames = response.data.$values.map(name => name.toLowerCase());
+      const normalizedNames = response.data.$values.map(name => name.toLowerCase()); // Chuyển tất cả tên thành chữ thường
+      console.log('Danh sách tên giải đấu đã chuyển thành chữ thường:', normalizedNames); // Kiểm tra danh sách đã chuyển
+      setExistingClubNames(normalizedNames); // Lưu vào state
+      if (normalizedNames.includes(clubName.toLowerCase())) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          clubName: 'Tên câu lạc bộ đã tồn tại.'
+        }));
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          clubName: ''
+        }));
+      }
+    } catch (error) {
+      console.error('Error fetching club names:', error);
+    }
+  };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -74,6 +101,12 @@ function SportClubCreation() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const isNameExist = existingClubNames.includes(sendformData.clubName.toLowerCase());
+
+    if (isNameExist) {
+      toast.error('Tên câu lạc bộ đã tồn tại!');
+      return;
+    }
     if (!validateForm()) return;
 
     try {

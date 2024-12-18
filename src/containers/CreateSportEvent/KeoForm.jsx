@@ -1,13 +1,41 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './KeoForm.module.css';
+import {getNameActivity} from "../../utils/activity"
 
-const KeoForm = ({ formData, setFormData }) => {
+const KeoForm = ({ formData, setFormData, setIsDuplicateError }) => {
+  const [existingNames, setExistingNames] = useState([]);
+
   const toggleCostType = () => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      isFree: !prevFormData.isFree, // Chỉ thay đổi giá trị isFree
-      amount: prevFormData.isFree ? 0 : prevFormData.amount, // Nếu isFree = true, set amount = 0, nếu là false thì giữ lại amount đã nhập
+      isFree: !prevFormData.isFree,
+      amount: prevFormData.isFree ? 0 : prevFormData.amount,
     }));
+  };
+
+  useEffect(() => {
+    const fetchExistingNames = async () => {
+      try {
+        const response = await getNameActivity();
+        setExistingNames(response.data.$values);
+      } catch (error) {
+        console.error('Error fetching names:', error);
+      }
+    };
+
+    fetchExistingNames();
+  }, []);
+
+  const handleNameChange = (e) => {
+    const newName = e.target.value;
+    setFormData({ ...formData, name: newName });
+
+    // Cập nhật trạng thái trùng tên lên component cha
+    if (existingNames.includes(newName)) {
+      setIsDuplicateError(true);
+    } else {
+      setIsDuplicateError(false);
+    }
   };
 
   return (
@@ -70,7 +98,7 @@ const KeoForm = ({ formData, setFormData }) => {
                     value={formData.amount}
                     onChange={(e) => setFormData({
                       ...formData,
-                      amount: parseInt(e.target.value) || 0  // Nếu nhập không phải số, gán giá trị là 0
+                      amount: parseInt(e.target.value) || 0
                     })}
                   />
                   <span className={styles.costUnit}>VNĐ</span>
@@ -88,12 +116,15 @@ const KeoForm = ({ formData, setFormData }) => {
             <input
               type="text"
               id="eventName"
-              className={styles.input}
+              className={`${styles.input} ${existingNames.includes(formData.name) ? styles.errorInput : ''}`}
               placeholder="Vd: Giao hữu với tôi"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={handleNameChange}
               required
             />
+            {existingNames.includes(formData.name) && (
+              <p className={styles.errorText}>Tên kèo đã tồn tại, vui lòng chọn tên khác.</p>
+            )}
           </div>
 
           <div className={styles.formGroup}>

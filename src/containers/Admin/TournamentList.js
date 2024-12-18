@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { Pagination } from "antd";
 import { Modal } from "antd";
 import { EyeOutlined, DeleteOutlined, ArrowLeftOutlined, PauseOutlined, PlayCircleOutlined, CalendarOutlined, TeamOutlined, EnvironmentOutlined, FlagOutlined, UsergroupAddOutlined } from '@ant-design/icons';
-import { getTournamentList, searchByNameClub, outClub, getTournamentMembers, deleteTournament, getListMember } from "../../utils/admin";
+import { getTournamentList, searchByNameTournament, outClub, getTournamentMembers, deleteTournament, getListMember } from "../../utils/admin";
 import { toast } from 'react-toastify';
 import helloAdmin from "../../assets/helloAdmin.png";
 import 'react-toastify/dist/ReactToastify.css';
@@ -122,7 +122,7 @@ function TournamentList() {
             try {
                 if (searchQuery) {
                     // Case when there's a search query
-                    const response = await searchByNameClub(searchQuery);
+                    const response = await searchByNameTournament(searchQuery);
 
                     if (response.status === 200) {
                         const searchList = response.data?.data.$values || [];
@@ -135,7 +135,7 @@ function TournamentList() {
                     // Case when searchQuery is empty
                     const response = await getTournamentList();
                     if (response.status === 200) {
-                        const clubs = response.data?.listClub.$values || [];
+                        const clubs = response.data?.$values || [];
                         setClubList(clubs);  // Set club list with full list
                         setPaginatedList(clubs.slice(0, itemsPerPage)); // Paginate full list
                     } else {
