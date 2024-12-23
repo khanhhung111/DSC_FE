@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './SegmentedButton.module.css';
 
 const SegmentedButton = () => {
-  const segments = ['Tất cả', 'Bóng đá', 'Bóng chuyền', 'Cầu lông', 'Pickleball'];
+  const segments = ['Tất cả', 'Bóng đá', 'Bóng chuyền', 'Cầu lông'];
 
   return (
     <div className={styles.segmentedButtonBlock}>

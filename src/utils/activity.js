@@ -95,53 +95,105 @@ const getrequestJoinActivity = (activityId) =>
       .then((result) => result)
       .catch((error) => error);
   };
-  const createActivity = (eventData) => {
-    return axios(
-      configuration({
+  const createActivity = async ({eventData, file}) => {
+    try {
+      const formData = new FormData();
+  
+      Object.keys(eventData).forEach((key) => {
+        formData.append(key, eventData[key]);
+      });
+  
+      if (file) {
+        formData.append("file", file);
+      }
+  
+      const response = await axios(configuration({
         method: "POST",
-        path: "/Activity/createActivity",
-        data:
-          eventData,
-      })
-    )
-      .then((result) => result)
-      .catch((error) => error);
+        path: `/Activity/createActivity`,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }));
+      return response;
+    } catch (error) {
+      throw error;
+    }
   };
-  const createActivityClub = (eventData) => {
-    return axios(
-      configuration({
+  const createActivityClub = async ({eventData, file}) => {
+    try {
+      const formData = new FormData();
+  
+      Object.keys(eventData).forEach((key) => {
+        formData.append(key, eventData[key]);
+      });
+  
+      if (file) {
+        formData.append("file", file);
+      }
+  
+      const response = await axios(configuration({
         method: "POST",
-        path: "/Activity/createActivityClub",
-        data:
-          eventData,
-      })
-    )
-      .then((result) => result)
-      .catch((error) => error);
+        path: `/Activity/createActivityClub`,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }));
+      return response;
+    } catch (error) {
+      throw error;
+    }
   };
-  const uppdateActivity = (eventData) => {
-    return axios(
-      configuration({
+  const uppdateActivity = async ({ eventData, file }) => {
+    try {
+      const formData = new FormData();
+  
+      Object.keys(eventData).forEach((key) => {
+        formData.append(key, eventData[key]);
+      });
+  
+      if (file) {
+        formData.append("file", file);
+      }
+  
+      const response = await axios(configuration({
         method: "POST",
-        path: "/Activity/uppdateActivity",
-        data:
-          eventData,
-      })
-    )
-      .then((result) => result)
-      .catch((error) => error);
+        path: `/Activity/uppdateActivity`,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }));
+      return response;
+    } catch (error) {
+      throw error;
+    }
   };
-  const uppdateActivityClub = (eventData) => {
-    return axios(
-      configuration({
+  const uppdateActivityClub = async ({ eventData, file }) => {
+    try {
+      const formData = new FormData();
+  
+      Object.keys(eventData).forEach((key) => {
+        formData.append(key, eventData[key]);
+      });
+  
+      if (file) {
+        formData.append("file", file);
+      }
+  
+      const response = await axios(configuration({
         method: "POST",
-        path: "/Activity/uppdateActivityClub",
-        data:
-          eventData,
-      })
-    )
-      .then((result) => result)
-      .catch((error) => error);
+        path: `/Activity/uppdateActivityClub`,
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }));
+      return response;
+    } catch (error) {
+      throw error;
+    }
   };
   const requestJoinActivity = (userId, activityId) => {
     return axios(
@@ -192,8 +244,59 @@ const getrequestJoinActivity = (activityId) =>
       .then((result) => result)
       .catch((error) => error);
   };
+const GetResults = (activityId) => {
+  return axios(
+    configuration({
+      method: "get",
+      path: `/Activity/GetResults/${activityId}`,
+    })
+  )
+    .then((result) => result)
+    .catch((error) => error);
+};
+const UpdateScore = (payload) => {
+  return axios(
+    configuration({
+      method: "put",
+      path: `/Activity/UpdateResults`,
+      data: payload,
+    })
+  )
+    .then((result) => result)
+    .catch((error) => error);
+};
+const GetComments = (activityId) => {
+  return axios(
+    configuration({
+      method: "get",
+      path: `/Activity/GetComments/${activityId}`,
+    })
+  )
+    .then((result) => result)
+    .catch((error) => error);
+};
+const AddComment = async (commentData) => {
+  return axios(
+    configuration({
+      method: "put",
+      path: `/Activity/AddComment`,
+      data: commentData,
+    })
+  )
+    .then((result) => result)
+    .catch((error) => error);
+};
+const DeleteComment = (commentId) => {
+  return axios(
+    configuration({
+      method: "delete",
+      path: `/Activity/DeleteComment/${commentId}`,
+    })
+  )
+    .then((result) => result)
+    .catch((error) => error);
+};
 
-  
 export {
     getAllActivity,
     getDetailActivity,
@@ -213,5 +316,10 @@ export {
     createActivityClub,
     JoinActivityClub,
     getInforJoinned,
-    getNameActivity
+    getNameActivity,
+    GetResults,
+    UpdateScore ,
+    GetComments,
+    AddComment,
+    DeleteComment
   };

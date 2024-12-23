@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './EventItem.module.css';
 import { useNavigate } from 'react-router-dom';
-
-const EventItem = ({ activityId,activityName, levelname, location, numberOfTeams, image, startDate }) => {
+import {dateFormatting} from '../../utils/formatHelper'
+const EventItem = ({ activityId,activityName, levelname, location, numberOfTeams, avatar, startDate }) => {
   const navigate = useNavigate();
   
   const handleButtonClick = (href) => {
@@ -14,7 +14,7 @@ const EventItem = ({ activityId,activityName, levelname, location, numberOfTeams
   return (
     <article className={styles.eventItem}>
       {/* Image */}
-      <img src={image || "https://via.placeholder.com/150"} alt={activityName} className={styles.eventImage} />
+      <img src={avatar || "https://via.placeholder.com/150"} alt={activityName} className={styles.eventImage} />
       
       <div className={styles.eventContent}>
         {/* Activity Name (Title) */}
@@ -45,7 +45,7 @@ const EventItem = ({ activityId,activityName, levelname, location, numberOfTeams
 
         {/* Start Date (Optional) */}
         <p className={styles.eventDate}>
-          Ngày bắt đầu: {new Date(startDate).toLocaleDateString()}
+          Ngày bắt đầu: {dateFormatting(startDate)}
         </p>
       </div>
       <button className={styles.moreButton} onClick={() => handleButtonClick()}>More</button>

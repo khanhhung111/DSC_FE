@@ -153,3 +153,122 @@
     cursor: pointer;
     border-radius: 5px;
   }
+  .imageUploadSection {
+    margin-top: 20px;
+  }
+  
+  .viewImageButton {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .viewImageButton:hover {
+    background-color: #45a049;
+  }
+  
+  .imagePopupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+/* CreateSportEvent.module.css */
+.imagePopupContent {
+  background-color: white;
+  padding: 20px;
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: hidden;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.imagePopupImage {
+  width: 100%;        /* Đảm bảo ảnh không vượt quá chiều rộng của container */
+  height: auto;       /* Giữ tỷ lệ gốc của ảnh */
+  max-height: 100%;   /* Giới hạn chiều cao của ảnh trong container */
+  object-fit: contain; /* Giữ ảnh không bị cắt xén và giữ nguyên tỷ lệ */
+}
+
+  
+  .closePopupButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  .imageUploadSection {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    max-width: 600px; /* Tạo độ rộng tối đa cho card */
+  }
+  
+  .imageUploadSection label {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .imageUploadSection input[type="file"] {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f8f8f8;
+    cursor: pointer;
+    width: 100%;
+    transition: border-color 0.3s ease;
+  }
+  
+  .imageUploadSection input[type="file"]:hover {
+    border-color: #007bff;
+  }
+  
+  .viewImageButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+  }
+  
+  .viewImageButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .viewImageButton:focus {
+    outline: none;
+  }
+  
+  .viewImageButton:active {
+    background-color: #004085;
+  }

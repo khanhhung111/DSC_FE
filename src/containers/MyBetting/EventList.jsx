@@ -122,6 +122,7 @@ const EventList = () => {
                     expense={event.expense}
                     description={event.description}
                     levelname={event.levelName}
+                    avatar={event.avatar}
                   />
                 ))}
               </div>

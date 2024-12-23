@@ -1,35 +1,63 @@
-import React from "react";
 import styles from './EventCard.module.css';
 import { useNavigate } from 'react-router-dom';
+import {requestJoinActivity} from '../../utils/activity';
+import { toast } from 'react-toastify';
 
-function EventCard() {
+function ActionButtons({ matchData }) {
   const navigate = useNavigate();
-
-  const buttons = [
-    { text: 'Tham gia', href: '#' },
-    { text: 'Người tham gia', href: '/match' },
-    { text: 'Kết quả', href: '/resultmatch' },
-  ];
-
+  const data = matchData[0];
+  console.log('data',data);
+  const userId = localStorage.getItem('userId');
+  const activityId = data?.activityId;
+  console.log('activityId',activityId);
+  const handleJoinActivity = async () => {
+    try {
+      const response = await requestJoinActivity(userId, activityId );
+      
+      // Kiểm tra phản hồi
+      if (response.data.success == true) {
+        console.log("result", response);
+        toast.success(response.data.message, {
+          autoClose: 1200,
+        });
+      } else {
+        throw new Error(response?.message || "Có lỗi xảy ra");
+      }
+    } catch (error) {
+      console.error("Lỗi:", error);
+      toast.error("Có lỗi xảy ra khi chấp nhận yêu cầu.", {
+        autoClose: 1000,
+      });
+    }
+  };
   const handleButtonClick = (href) => {
-    if (href !== '#') {
+    if (href) {
       navigate(href);
     }
   };
 
   return (
     <div className={styles.actionButtons}>
-      {buttons.map((item, index) => (
-        <button
-          key={index}
-          className={styles.button}
-          onClick={() => handleButtonClick(item.href)}
-        >
-          {item.text}
-        </button>
-      ))}
+      <button
+        className={styles.button}
+        onClick={() => handleJoinActivity()}
+      >
+        Tham Gia
+      </button>
+      <button
+        className={styles.button}
+        onClick={() => handleButtonClick(`/membermatch/${data?.activityId}`)}
+      >
+        Người tham gia
+      </button>
+      <button
+        className={styles.button}
+        onClick={() => handleButtonClick(`/resultmatch/${data?.activityId}`)}
+      >
+        Kết quả
+      </button>
     </div>
   );
 }
 
-export default EventCard;
+export default ActionButtons;

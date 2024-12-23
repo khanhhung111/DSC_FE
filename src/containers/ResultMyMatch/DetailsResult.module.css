@@ -1,0 +1,207 @@
+.matchResult {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;  /* Thêm nền cho khu vực kết quả */
+  border-radius: 10px; /* Bo góc các phần tử */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Thêm bóng cho phần tử */
+}
+
+.resultTitle {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #333;  /* Chỉnh màu cho tiêu đề */
+}
+
+.scoreBoard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  width: 100%;
+  border-bottom: 2px solid #ccc; /* Thêm đường viền dưới bảng tỉ số */
+  padding-bottom: 15px;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 120px;  /* Cố định chiều rộng cho mỗi đội */
+}
+
+.teamAvatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.team h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #007bff;  /* Màu sắc cho tên đội */
+  font-weight: bold;
+}
+
+.score {
+  font-size: 48px;
+  font-weight: bold;
+  color: #333; /* Màu sắc cho điểm số */
+  margin-bottom: 10px;
+}
+
+.matchInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  background-color: #e9ecef;  /* Màu nền cho thông tin trận đấu */
+  border-radius: 5px;
+}
+
+.statsContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 30px;
+}
+
+.teamStats {
+  font-size: 14px;
+  color: #666;
+  text-align: center;
+  width: 48%;  /* Chiều rộng cho các thông số */
+}
+
+.commentSection {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.comments {
+  margin-bottom: 20px;
+}
+
+.comment {
+  background-color: #f0f0f0;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Thêm bóng cho mỗi bình luận */
+}
+
+.commentForm {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.commentInput {
+  flex-grow: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.commentButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+  font-size: 14px;
+}
+
+.commentButton:hover {
+  background-color: #0056b3;
+}
+
+.commentButton:focus {
+  outline: none;
+}
+
+.scoreInput {
+  width: 80px;
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.updateButton {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  margin-top: 10px;
+}
+
+.updateButton:hover {
+  background-color: #218838;
+}
+
+.updateButton:focus {
+  outline: none;
+}
+/* Nút xóa */
+/* Add to your DetailsResult.module.css */
+
+/* Add to your DetailsResult.module.css */
+
+.comment {
+  position: relative; /* Make the comment container relative for absolute positioning of the delete button */
+  padding-right: 40px; /* Give space for the delete button */
+}
+
+.deleteButton {
+  display: none; /* Hide the button by default */
+  position: absolute; /* Position it absolutely inside the comment container */
+  top: 50%; /* Vertically center the button */
+  right: 10px; /* Position it towards the right */
+  transform: translateY(-50%); /* Adjust for perfect vertical centering */
+  background-color: #ff4d4d; /* Red background */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  padding: 6px 12px; /* Padding for the button */
+  font-size: 14px; /* Font size */
+  font-weight: 600; /* Bold text */
+  border-radius: 20px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.comment:hover .deleteButton {
+  display: block; /* Show the delete button when hovering over the comment */
+}
+
+.deleteButton:hover {
+  background-color: #ff1a1a; /* Darker red on hover */
+  transform: scale(1.05); /* Slightly enlarge the button */
+}
+
+.deleteButton:focus {
+  outline: none; /* Remove default focus outline */
+}
+
+.deleteButton:active {
+  background-color: #e60000; /* Even darker red when clicked */
+}
+

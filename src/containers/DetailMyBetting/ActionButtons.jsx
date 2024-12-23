@@ -33,7 +33,7 @@ function ActionButtons({ matchData }) {
       </button>
       <button
         className={styles.button}
-        onClick={() => handleButtonClick('/resultmatch')}
+        onClick={() => handleButtonClick(`/resultmymatch/${data?.activityId}`)}
       >
         Kết quả
       </button>

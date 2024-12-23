@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from "react";
 import Hearder from '../../components/Header/Hearder';
 import SportSelection from './SportSelection';
 import EventTypeSelection from './EventTypeSelection';
@@ -14,7 +14,6 @@ import 'react-toastify/dist/ReactToastify.css';
 function CreateSportEvent() {
   const navigate = useNavigate();
   const userId = localStorage.getItem('userId');
-
   if (!userId) {
     console.log("userId không tồn tại trong localStorage");
   }
@@ -34,8 +33,30 @@ function CreateSportEvent() {
     isFree: true,
   });
 
+  // State for image upload
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+  const fileInputRef = useRef(null);
+
+  // Handle image upload
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setUploadedImage(file);
+      setImagePreviewUrl(imageUrl); // Create a valid preview URL for the image
+    }
+  };
+
+  // Open and close image popup
+  const toggleImagePopup = () => {
+    if (imagePreviewUrl) { // Ensure the image preview URL exists before toggling the popup
+      setIsImagePopupOpen(!isImagePopupOpen);
+    }
+  };
+
   const handleCreateEvent = async () => {
-    // Validate required fields
     if (
       !selectedSport ||
       !selectedEventType ||
@@ -75,7 +96,12 @@ function CreateSportEvent() {
     };
 
     try {
-      const response = await createActivity(eventData);
+      const response = await createActivity(
+        {
+          eventData,
+          file: uploadedImage
+        }
+      );
 
       if (response?.data?.success === true) {
         toast.success("Đã tạo kèo thể thao thành công!", {
@@ -102,6 +128,18 @@ function CreateSportEvent() {
         <h1 className={styles.title}>Tạo kèo</h1>
         <SportSelection onSelectSport={setSelectedSport} selectedSport={selectedSport} />
         <EventTypeSelection onSelectType={setSelectedEventType} selectedType={selectedEventType} />
+
+        {/* Image upload section */}
+        <div className={styles.imageUploadSection}>
+          <label>Chọn ảnh cho kèo đấu</label>
+          <input type="file" name="clubImage" accept="image/*" onChange={handleImageUpload} ref={fileInputRef} />
+          {imagePreviewUrl && (
+            <button onClick={toggleImagePopup} className={styles.viewImageButton}>
+              Xem ảnh
+            </button>
+          )}
+        </div>
+
         <KeoForm
           formData={formData}
           setFormData={setFormData}
@@ -109,6 +147,17 @@ function CreateSportEvent() {
         />
         <CreateEventButton onClick={handleCreateEvent} />
       </main>
+
+      {/* Image Popup */}
+      {isImagePopupOpen && imagePreviewUrl && (
+        <div className={styles.imagePopupOverlay} onClick={toggleImagePopup}>
+          <div className={styles.imagePopupContent}>
+            <img src={imagePreviewUrl} alt="Uploaded Preview" className={styles.imagePopupImage} />
+            <button className={styles.closePopupButton} onClick={toggleImagePopup}>Đóng</button>
+          </div>
+        </div>
+      )}
+
       <Footer />
       <ToastContainer position="top-right" autoClose={5000} />
     </div>

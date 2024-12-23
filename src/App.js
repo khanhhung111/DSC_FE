@@ -46,6 +46,7 @@ import JoinActivity from "./containers/JoinActivity/MemberMatch";
 import CreateSportEvent from "./containers/CreateSportEvent/CreateSportEvent";
 import CreateSportEventClub from "./containers/CreateSportEventClub/CreateSportEvent";
 import ResultMatch from "./containers/ResultMatch/ResultMatch";
+import ResultMyMatch from "./containers/ResultMyMatch/ResultMatch";
 import Security from "./containers/Security/Security";
 import UpdateSportEvent from "./containers/UpdateSportEvent/UpdateSportEvent";
 import UpdateSportEventClub from "./containers/UpdateSportEventClub/UpdateSportEvent";
@@ -108,7 +109,8 @@ function App() {
           
           <Route path="/updatesportevent/:activityId" element={<UpdateSportEvent />} />
           <Route path="/updatesporteventclub/:activityclubId" element={<UpdateSportEventClub />} />
-          <Route path="/resultmatch" element={<ResultMatch />} />
+          <Route path="/resultmatch/:activityId" element={<ResultMatch />} />
+          <Route path="/resultmymatch/:activityId" element={<ResultMyMatch />} />
           <Route path="/security" element={<Security />} />
           <Route path="/createTournament" element={<TournamentForm />} />
           <Route path="/mytournament" element={<MyTournament />} />

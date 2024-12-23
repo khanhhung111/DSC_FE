@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Hearder from '../../components/Header/Hearder';
 import SportSelection from './SportSelection';
 import EventTypeSelection from './EventTypeSelection';
@@ -30,7 +30,22 @@ function UpdateSportEvent() {
     name: '',
     description: '',
   });
-  
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const [imagePreviewUrl, setImagePreviewUrl] = useState('');
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false); // State quản lý popup ảnh
+  const fileInputRef = useRef(null);
+
+  const toggleImagePopup = () => setIsImagePopupOpen(!isImagePopupOpen);
+
+  // Handle image upload
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setUploadedImage(file);
+      setImagePreviewUrl(imageUrl);
+    }
+  };
   const handleUpdateEvent = async () => {
     const eventData = {
       activityId:activityclubId,
@@ -45,10 +60,14 @@ function UpdateSportEvent() {
       description: formData.description,
       userId,  // Truyền trực tiếp `userId` từ localStorage
       amount: formData.amount,  // Truyền amount thay vì `cost`
+      avatar: uploadedImage || formData.avatar,
     };
   
     try {
-      const response = await uppdateActivityClub(eventData);
+      const response = await uppdateActivityClub({
+        eventData,
+        file: uploadedImage
+      });
       console.log("response", response);
   
       // Kiểm tra phản hồi
@@ -83,9 +102,11 @@ function UpdateSportEvent() {
             name: responsedata.data.$values[0].activityName,
             description: responsedata.data.$values[0].description,
             amount: responsedata.data.$values[0].expense,
+            avatar: responsedata.data.$values[0].avatar,
           };
   
           setFormData(updatedFormData);
+          setImagePreviewUrl(responsedata.data.$values[0].avatar);
           console.log("Updated formData:", updatedFormData);  // Kiểm tra formData sau khi set
         }
       } catch (error) {
@@ -128,6 +149,21 @@ function UpdateSportEvent() {
             selectedType={selectedEventType}
           />
         </section>
+        <div className={styles.imageUploadSection}>
+          <label>Chọn ảnh cho kèo đấu</label>
+          <input
+            type="file"
+            name="clubImage"
+            accept="image/*"
+            onChange={handleImageUpload}
+            ref={fileInputRef}
+          />
+          {imagePreviewUrl && (
+            <button onClick={toggleImagePopup} className={styles.viewImageButton}>
+              Xem ảnh
+            </button>
+          )}
+        </div>
         <section className={styles.eventForm}>
           <KeoForm 
             formData={formData}        // Truyền formData và setFormData vào KeoForm
@@ -146,6 +182,17 @@ function UpdateSportEvent() {
           draggable
           pauseOnHover
         />
+        {isImagePopupOpen && imagePreviewUrl && (
+        <div className={styles.imagePopupOverlay} onClick={toggleImagePopup}>
+          <div className={styles.imagePopupContent} onClick={(e) => e.stopPropagation()}>
+            <img src={imagePreviewUrl} alt="Avatar Preview" className={styles.imagePopupImage} />
+            <button onClick={toggleImagePopup} className={styles.closePopupButton}>
+              Đóng
+            </button>
+          </div>
+        </div>
+      )}
+
       </main>
       <Footer />
     </div>

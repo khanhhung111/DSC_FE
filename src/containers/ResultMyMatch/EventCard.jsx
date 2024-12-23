@@ -1,4 +1,4 @@
-import styles from './ActionButtons.module.css';
+import styles from './EventCard.module.css';
 import { useNavigate } from 'react-router-dom';
 import {requestJoinActivity} from '../../utils/activity';
 import { toast } from 'react-toastify';
@@ -40,19 +40,13 @@ function ActionButtons({ matchData }) {
     <div className={styles.actionButtons}>
       <button
         className={styles.button}
-        onClick={() => handleJoinActivity()}
-      >
-        Tham Gia
-      </button>
-      <button
-        className={styles.button}
-        onClick={() => handleButtonClick(`/membermatch/${data?.activityId}`)}
+        onClick={() => handleButtonClick(`/membermymatch/${data?.activityId}`)}
       >
         Người tham gia
       </button>
       <button
         className={styles.button}
-        onClick={() => handleButtonClick(`/resultmatch/${data?.activityId}`)}
+        onClick={() => handleButtonClick(`/resultmymatch/${data?.activityId}`)}
       >
         Kết quả
       </button>
