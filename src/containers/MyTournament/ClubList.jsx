@@ -50,6 +50,7 @@ function ClubList() {
             location={tournament.location}
             startDate={tournament.startDate}
             avatar={tournament.avatar || 'default-avatar-url'} // Đặt avatar mặc định nếu không có
+            tournamentType={tournament.tournamentType}
           />
         </li>
       ))}

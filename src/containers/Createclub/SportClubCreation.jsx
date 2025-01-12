@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { CloseCircleOutlined } from "@ant-design/icons";
 import styles from "./SportClubCreation.module.css";
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -6,7 +6,7 @@ import HeaderLogin from "../../components/Header/Hearder";
 import HeroSection from "../Club/HeroSection";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // CSS mặc định của Quill
-import { createClub, getAllClubNames } from "../../utils/club"
+import { createClub, getAllClubNames, setPayment, deleteClub, createPaymentClub, PaymentforClub } from "../../utils/club"
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,11 +18,13 @@ const skillLevels = [
 
 function SportClubCreation() {
   const navigate = useNavigate();
+  const location = useLocation();
   const userId = localStorage.getItem('userId');
   const [selectedFile, setSelectedFile] = useState(null);
   const [errors, setErrors] = useState({});
   const [existingClubNames, setExistingClubNames] = useState([]);
-
+  const [toastShown, setToastShown] = useState(false);
+  const [params, setParams] = useState(new URLSearchParams(location.search));
   const sports = [
     { emoji: "⚽", name: "Bóng đá", value: 1 },
     { emoji: "🏐", name: "Bóng chuyền", value: 2 },
@@ -98,7 +100,37 @@ function SportClubCreation() {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0; // Trả về true nếu không có lỗi
   };
-
+  const callNetPayment = useCallback(async () => {
+    try {
+      // Đảm bảo không gọi lại hàm nếu đã xử lý
+      if (!toastShown && params.toString()) {
+        const responsePayment = await setPayment(params);
+        console.log(responsePayment);
+        if (responsePayment.message === "Success" && responsePayment.rspCode) {
+          await PaymentforClub();
+          toast.success("Tạo câu lạc bộ thành công.", {
+            autoClose: 1000,
+          });
+          setToastShown(true); // Đặt trạng thái để không hiển thị lại toast
+          setTimeout(() => navigate('/myclub'), 1900);
+        } else {
+          await deleteClub(responsePayment.clubId);
+          toast.error("Bạn không thanh toán nên không thể tạo giải đấu.", {
+            autoClose: 1000,
+          });
+          setTimeout(() => navigate('/createClub'), 1900);
+        }
+      }
+    } catch (err) {
+      console.error('Error in callNetPayment:', err);
+    }
+  }, [params, toastShown, navigate]);
+  useEffect(() => {
+    if (!toastShown) {
+      callNetPayment();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params]); // Chỉ phụ thuộc vào params để tránh gọi lại không cần thiết
   const handleSubmit = async (e) => {
     e.preventDefault();
     const isNameExist = existingClubNames.includes(sendformData.clubName.toLowerCase());
@@ -114,11 +146,29 @@ function SportClubCreation() {
         sendformData,
         file: selectedFile
       });
-      console.log("Success:", responseClub);
-      toast.success("Câu lạc bộ của bạn đã được tạo thành công!", {
-        autoClose: 1000,
-      });
-      setTimeout(() => navigate('/myclub'), 1900);
+      console.log("tournamentId", responseClub.data.clubId);
+      if (responseClub.data.clubId) {
+        const createdClubId = responseClub.data.clubId;
+        const Amount = 200000;
+        const response = await createPaymentClub(createdClubId, Amount);
+
+        if (response.data) {
+          // Redirect to VNPay payment page
+          window.location.href = response.data;
+
+          // Lắng nghe sự kiện beforeunload khi người dùng thoát khỏi trang
+          window.addEventListener('beforeunload', async () => {
+            // Nếu người dùng chưa thanh toán và đang thoát trang
+            await deleteClub(createdClubId);
+          });
+        } else {
+          toast.error(response.data.message || 'Có lỗi xảy ra');
+          // If payment link is not available, delete tournament
+          await deleteClub(createdClubId);
+        }
+      } else {
+        toast.error(responseClub.data.message || 'Có lỗi xảy ra');
+      }
     } catch (error) {
       console.error("Error:", error);
       toast.error("Đã xảy ra lỗi. Vui lòng thử lại.");
@@ -247,7 +297,14 @@ function SportClubCreation() {
                 </p>
               )}
             </div>
+            
 
+            {/* Thêm lưu ý về phí tạo câu lạc bộ */}
+            <div className={styles.feeNotice}>
+              <p style={{ color: 'red', fontWeight: 'bold', textAlign: 'center', marginBottom: '20px' }}>
+                Lưu ý: Phí tạo câu lạc bộ sẽ là 200.000 đồng ( Gia hạn tháng tiếp theo sẽ là 150.000 đồng.).
+              </p>
+            </div>
 
             {/* Submit Button */}
             <div className={styles.centerWrapper}>

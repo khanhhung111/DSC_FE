@@ -22,6 +22,18 @@ function ClubList() {
     const [isDetailView, setIsDetailView] = useState(false); // Trạng thái xem chi tiết
     const [clubToDelete, setClubToDelete] = useState(null);
     const [clubId, setClubId] = useState(null);
+    const getStatusText = (status) => {
+        switch (status) {
+            case "Active":
+                return "Đang Hoạt Động";
+            case "Inactive":
+                return "Dừng Hoạt Động";
+            case "Expired":
+                return "Hết Hạn";
+            default:
+                return status;
+        }
+    };
     useEffect(() => {
         getClubList()
             .then((res) => {
@@ -144,10 +156,10 @@ function ClubList() {
             setClubId(clubId); // Lưu clubId vào state
             setIsDetailView(true); // Chuyển sang chế độ xem chi tiết
             setPaginatedListDetail(clubdetails.slice(0, itemsPerPage)); // Paginate full list
-          } catch (error) {
+        } catch (error) {
             console.error(error);
             toast.error("Lỗi khi tải chi tiết câu lạc bộ.");
-          }
+        }
     };
     const handleActivateClub = async (clubId) => {
         try {
@@ -252,8 +264,16 @@ function ClubList() {
                                 <h3 className="text-lg font-semibold mb-1">{club.clubName}</h3>
                                 <p className="text-sm text-gray-600 mb-1">Ngày tạo: {dateFormatting(club.createDate)}</p>
                                 <p className="text-sm text-gray-600 mb-1">{club.userCount} Thành Viên</p>
-                                <p className="text-sm text-gray-600 mb-1">Trạng Thái: {club.status}</p>
+                                <p className="text-sm mb-1">
+                                    Trạng Thái:
+                                    <span className={`${club.status === "Active" ? "text-green-500" :
+                                            (club.status === "Inactive" || club.status === "Expired") ? "text-red-500" : "text-gray-600"
+                                        }`}>
+                                        {getStatusText(club.status)}
+                                    </span>
+                                </p>
                             </div>
+
 
                             {/* Chi tiết button with icon */}
                             <button

@@ -45,19 +45,24 @@ const EventList = () => {
 
   const groupEventsByDate = (events) => {
     if (!Array.isArray(events) || events.length === 0) return [];
-  
+
     const grouped = events.reduce((groups, event) => {
-      // Kiểm tra startDate tồn tại
       if (!event.startDate) return groups;
-  
-      const date = new Date(event.startDate).toLocaleDateString();
-      if (!groups[date]) {
-        groups[date] = [];
+
+      const date = new Date(event.startDate);
+      const formattedDate = date.toLocaleDateString('vi-VN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      });
+
+      if (!groups[formattedDate]) {
+        groups[formattedDate] = [];
       }
-      groups[date].push(event);
+      groups[formattedDate].push(event);
       return groups;
     }, {});
-  
+
     return Object.entries(grouped).sort(([dateA], [dateB]) => {
       return new Date(dateA) - new Date(dateB);
     });
@@ -70,15 +75,14 @@ const EventList = () => {
         const headerDate = new Date(date.split('/').reverse().join('-')); // Chuyển từ dd/mm/yyyy sang yyyy-mm-dd
 
         return (
-          <div key={date} className={styles.dayGroup} style={{paddingTop:'30px'}}>
+          <div key={date} className={styles.dayGroup}>
             <h2 className={styles.dateHeader}>
-              {headerDate.toLocaleDateString('vi-VN', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </h2>
+  {headerDate.toLocaleDateString('vi-VN', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long'
+  }) + ` năm ${headerDate.getFullYear()}`}
+</h2>
             <div className={styles.dayContent}>
               <div className={styles.timeColumn}>
                 {dailyEvents.map((event, index) => {
@@ -114,6 +118,7 @@ const EventList = () => {
                     description={event.description}
                     levelname={event.levelName}
                     numberOfParticipants= {event.numberOfParticipants}
+                    avatar = {event.avatar}
                   />
                 ))}
               </div>

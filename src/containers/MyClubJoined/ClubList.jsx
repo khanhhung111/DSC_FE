@@ -54,7 +54,7 @@ function ClubList() {
             levelName={club.levelName}
             status={club.status}
             userCount={club.userCount}
-            avatar={club.avatar} 
+            avatar={club.avatar}
           />
         </li>
       ))}

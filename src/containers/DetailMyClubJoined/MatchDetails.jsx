@@ -6,7 +6,19 @@ import { UserOutlined, TrophyOutlined, BulbOutlined } from '@ant-design/icons';
 function MatchDetails({ matchData }) {
   console.log("match", matchData);
   const data = matchData;
-
+  const status = data.status;
+  const getStatusText = (status) => {
+    switch (status) {
+      case "Active":
+        return "Đang Hoạt Động";
+      case "Inactive":
+        return "Dừng Hoạt Động";
+      case "Expired":
+        return "Hết Hạn";
+      default:
+        return status;
+    }
+  };
   return (
     <section className={styles.matchDetails}>
       <div className={styles.matchContent}>
@@ -40,9 +52,9 @@ function MatchDetails({ matchData }) {
               Trạng thái:
               <span className={styles.statusSpace}> </span> {/* Thêm khoảng trắng */}
               <span
-                className={data.status === "Active" ? styles.activeStatus : styles.inactiveStatus}
+                className={status === "Active" ? styles.activeStatus : styles.inactiveStatus}
               >
-                {data.status}
+                {getStatusText(status)}
               </span>
             </span>
           </div>

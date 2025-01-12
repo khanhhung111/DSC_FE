@@ -20,7 +20,7 @@ function ParticipantList({ memberdata }) {
           const levelName = participant?.levelName || "Trình độ không xác định";
 
           // Sử dụng avatar mặc định nếu không có avatar
-          const avatarUrl = participant?.avatarUrl || "https://cdn.builder.io/api/v1/image/assets/TEMP/50853265154f5d63067e64f710fa527ace98511e05967c947d8eabed1d8d8406?placeholderIfAbsent=true&apiKey=64a11f7ccf9c4f09a01cd9aadc1c5dac";
+          const avatarUrl = participant?.avatarUser || "https://cdn.builder.io/api/v1/image/assets/TEMP/50853265154f5d63067e64f710fa527ace98511e05967c947d8eabed1d8d8406?placeholderIfAbsent=true&apiKey=64a11f7ccf9c4f09a01cd9aadc1c5dac";
 
           return (
             <li key={index} className={styles.participantItem}>

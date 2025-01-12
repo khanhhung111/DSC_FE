@@ -20,6 +20,27 @@ const signUp = ({
     .then((result) => result)
     .catch((error) => error);
 };
+const logingoogle = async () => {
+  try {
+    const response = await axios(
+      configuration({
+        method: "get",
+        path: "/Authen/login-google",
+      })
+    );
+    
+    // Kiểm tra và lấy URL trực tiếp từ response.data
+    if (response.data && typeof response.data === 'string') {
+      window.location.href = response.data;
+    } else {
+      console.error('Invalid response format:', response.data);
+      throw new Error('Invalid response format from server');
+    }
+  } catch (error) {
+    console.error('Google login error:', error);
+    throw error;
+  }
+};
 
 const login = (email, password) => {
   return axios(
@@ -49,4 +70,4 @@ const changePassGua = ({ data }) =>
       data: data,
     })
   );
-export { signUp, login, changePass, changePassGua };
+export { signUp, login, changePass, changePassGua,logingoogle };

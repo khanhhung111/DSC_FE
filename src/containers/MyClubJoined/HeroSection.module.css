@@ -34,7 +34,7 @@
 .heroNav {
   display: flex;
   margin-top: 11px;
-  width: 465px;
+  width: 500px;
   max-width: 100%;
   gap: 20px;
   color: var(--Schemes-On-Surface, #1d1b20);

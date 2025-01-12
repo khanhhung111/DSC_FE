@@ -37,25 +37,41 @@ function DetailsResult({ matchData }) {
     fetchData();
   }, [activityId]);
 
+  const sensitiveWords = [
+    "bạo lực", "chửi thề", "mẹ", "con cặc", "đánh","cc","cl","lồn","loz","đcm","đm","đmm","đé"// thêm các từ ngữ phản cảm vào đây
+    // Bạn có thể mở rộng danh sách các từ ngữ nhạy cảm này
+  ];
+  
+  const containsSensitiveWords = (comment) => {
+    // Kiểm tra nếu bình luận có chứa từ ngữ nhạy cảm
+    return sensitiveWords.some(word => comment.toLowerCase().includes(word));
+  };
+  
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (newComment.trim()) {
+      // Kiểm tra từ ngữ nhạy cảm trong bình luận
+      if (containsSensitiveWords(newComment)) {
+        toast.error('Bình luận của bạn chứa ngôn từ phản cảm, vui lòng sửa lại!');
+        return;
+      }
+  
       try {
         const commentData = {
           activityId,
           userId: userId,
           Comment1: newComment,
         };
-
+  
         const response = await AddComment(commentData);
         if (response.status === 200) {
           const newComment = {
-            commentID: response.data.$values.commentID,
-            fullName: response.data.$values.fullName,
-            commentText: response.data.$values.commentText,
+            commentID: response.data.commentID,
+            fullName: response.data.fullName,
+            commentText: response.data.commentText,
           };
-
+  
           setComments([...comments, newComment]);
           setNewComment('');
           toast.success('Bình luận của bạn đã được gửi!');
@@ -66,6 +82,7 @@ function DetailsResult({ matchData }) {
       }
     }
   };
+  
 
   // Xử lý xóa bình luận
   const handleDeleteComment = async (commentId) => {

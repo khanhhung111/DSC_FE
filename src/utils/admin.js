@@ -22,13 +22,13 @@ const activateClub = (clubId) => {
     .catch((error) => error);
 };
 const updateInfoCustomer = (
-  updatedDetails,
+  updatedPayload,
 ) => {
   return axios(
     configuration({
       method: "POST",
       path: "/Admin/UpdateInforcustomer",
-      data: updatedDetails,
+      data: updatedPayload,
     }),
   )
     .then((result) => result)

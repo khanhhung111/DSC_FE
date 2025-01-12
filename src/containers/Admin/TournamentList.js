@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { Pagination } from "antd";
 import { Modal } from "antd";
-import { EyeOutlined, DeleteOutlined, ArrowLeftOutlined, PauseOutlined, PlayCircleOutlined, CalendarOutlined, TeamOutlined, EnvironmentOutlined, FlagOutlined, UsergroupAddOutlined } from '@ant-design/icons';
+import { EyeOutlined, DeleteOutlined, UserOutlined, ArrowLeftOutlined, PauseOutlined, PlayCircleOutlined, CalendarOutlined, TeamOutlined, EnvironmentOutlined, FlagOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 import { getTournamentList, searchByNameTournament, outClub, getTournamentMembers, deleteTournament, getListMember } from "../../utils/admin";
 import { toast } from 'react-toastify';
 import helloAdmin from "../../assets/helloAdmin.png";
@@ -10,6 +10,7 @@ import { dateFormatting } from "../../utils/formatHelper";
 import Defaults from "../../assets/teamne.jpg";
 import styles from "./Detail/Tournament.module.css"
 import ViewTournament from "./ViewTournamentBracketAdmin/ViewTournamentBracketAdmin"
+import ViewRoundRobinTournament from "./RoundRobinJoin/RoundRobinBracket"
 function TournamentList() {
     const [showModal, setShowModal] = useState(false);
     const [selectedTeamPlayers, setSelectedTeamPlayers] = useState([]);
@@ -31,11 +32,12 @@ function TournamentList() {
     const [tournamentId, setTournamentId] = useState(null);
     const [showViewTournament, setShowViewTournament] = useState(false); // Trạng thái hiển thị ViewTournament
     const [currentTournamentId, setCurrentTournamentId] = useState(null); // Lưu TournamentID
-
-    const handleViewSchedule = (tournamentId) => {
-        setCurrentTournamentId(tournamentId); // Gán ID giải đấu hiện tại
-        setShowViewTournament(!showViewTournament); // Đổi trạng thái hiển thị
-    };
+    const [tournamentType, setTournamentType] = useState(null);
+    const handleViewSchedule = (tournamentId, tournamentType) => {
+        setCurrentTournamentId(tournamentId); // Set current tournament ID
+        setTournamentType(tournamentType); // Set the current tournament type
+        setShowViewTournament(!showViewTournament); // Toggle view state
+    };  
     useEffect(() => {
         getTournamentList()
             .then((res) => {
@@ -199,14 +201,17 @@ function TournamentList() {
 
     return (
         <div className="p-4">
-            <input
-                type="text"
-                placeholder="Search by name..."
-                value={searchQuery}
-                onChange={handleSearch}
-                className="w-1/4 mb-4 p-2 border-2 border-blue-500 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all ease-in-out duration-300"
-            />
-
+            {/* Hiển thị ô tìm kiếm nếu không phải ở chế độ xem lịch thi đấu */}
+            {!showViewTournament && (
+                <input
+                    type="text"
+                    placeholder="Search by name..."
+                    value={searchQuery}
+                    onChange={handleSearch}
+                    className="w-1/4 mb-4 p-2 border-2 border-blue-500 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all ease-in-out duration-300"
+                />
+            )}
+    
             {/* Hiển thị chi tiết câu lạc bộ */}
             {isDetailView ? (
                 <div className="space-y-6">
@@ -238,7 +243,6 @@ function TournamentList() {
                                 Xem Thêm
                             </button>
                         </div>
-
                     ))}
                     {showModal && (
                         <div className={styles.modal} onClick={closeModal}>
@@ -252,9 +256,9 @@ function TournamentList() {
                                 >
                                     ✕
                                 </button>
-
+    
                                 <h2>Danh sách Cầu thủ</h2>
-
+    
                                 {loading ? (
                                     <div className={styles.loadingSpinner}>
                                         <p>Đang tải...</p>
@@ -296,9 +300,15 @@ function TournamentList() {
                         <ArrowLeftOutlined className="text-xl" />
                         <span className="text-lg font-semibold">Quay lại</span>
                     </button>
-                    <ViewTournament tournamentId={currentTournamentId} />
+                    {tournamentType === "knockout" ? (
+                        <ViewTournament tournamentId={currentTournamentId} />
+                    ) : tournamentType === "roundRobin" ? (
+                        <ViewRoundRobinTournament tournamentId={currentTournamentId} />
+                    ) : (
+                        <div className="text-center text-red-500">Loại giải đấu không hợp lệ</div>
+                    )}
                 </div>
-            ): (
+            ) : (
                 <div className="space-y-4">
                     {paginatedList.map((club) => (
                         <div
@@ -313,48 +323,52 @@ function TournamentList() {
                             <div className="flex-1">
                                 <h3 className="text-lg font-semibold mb-2 flex items-center space-x-2">
                                     <span>{club.name}</span>
+                                    <span className="text-base font-normal text-gray-600">
+                                        ({club.tournamentType === "knockout" ? "Loại trực tiếp" : club.tournamentType === "roundRobin" ? "Đấu vòng tròn" : club.tournamentType})
+                                    </span>
                                 </h3>
-
+    
                                 <p className="text-sm mb-2 flex items-center space-x-2">
                                     <CalendarOutlined className="text-lg text-blue-500" />
                                     <span>Ngày bắt đầu: {dateFormatting(club.startDate)}</span>
                                 </p>
-
+    
                                 <p className="text-sm mb-2 flex items-center space-x-2">
                                     <CalendarOutlined className="text-lg text-blue-500" />
                                     <span>Ngày kết thúc: {dateFormatting(club.endDate)}</span>
                                 </p>
-
+    
                                 <p className="text-sm mb-2 flex items-center space-x-2">
                                     <UsergroupAddOutlined className="text-lg text-green-500" />
                                     <span>{club.numberOfTeams} đội</span>
                                 </p>
-
+    
                                 <p className="text-sm mb-2 flex items-center space-x-2">
                                     <EnvironmentOutlined className="text-lg text-orange-500" />
                                     <span>Địa Điểm: {club.location}</span>
                                 </p>
-
+    
                                 <p className={`text-sm mb-2 flex items-center space-x-2 `}>
                                     <FlagOutlined className="text-lg" />
                                     <span>Trình Độ Yêu Cầu:
                                         <span
-                                            className={`
-      ${club.levelName === 'Mới biết chơi' || club.levelName === 'Trung bình - Khá' ? 'text-green-500' : ''}
-      ${club.levelName === 'Chuyên nghiệp' ? 'text-red-500' : ''}
-      text-sm
-    ` } style={{ paddingLeft: '5px' }}
+                                            className={`${
+                                                club.levelName === 'Mới biết chơi' || club.levelName === 'Trung bình - Khá' ? 'text-green-500' : ''
+                                            }
+                                            ${club.levelName === 'Chuyên nghiệp' ? 'text-red-500' : ''}
+                                            text-sm`}
+                                            style={{ paddingLeft: '5px' }}
                                         >
                                             {club.levelName}
                                         </span>
                                     </span>
                                 </p>
+                                <p className="text-sm mb-2 flex items-center space-x-2">
+                                    <UserOutlined className="text-lg text-green-500" />
+                                    <span>Người tạo: {club.createdBy}</span>
+                                </p>
                             </div>
-
-
-
-
-
+    
                             {/* Chi tiết button with icon */}
                             <button
                                 className="text-blue-500 flex items-center space-x-2"
@@ -365,13 +379,13 @@ function TournamentList() {
                             </button>
                             <span className="border-l border-gray-300 h-6 mx-4"></span>
                             <button
-        className="text-green-500 flex items-center space-x-2"
-        onClick={() => handleViewSchedule(club.tournamentId)} // Hàm này xử lý xem lịch thi đấu
-    >
-        <CalendarOutlined />
-        <span>Xem Lịch Thi Đấu</span>
-    </button>
-    <span className="border-l border-gray-300 h-6 mx-4"></span>
+                                className="text-green-500 flex items-center space-x-2"
+                                onClick={() => handleViewSchedule(club.tournamentId, club.tournamentType)} // Hàm này xử lý xem lịch thi đấu
+                            >
+                                <CalendarOutlined />
+                                <span>Xem Lịch Thi Đấu</span>
+                            </button>
+                            <span className="border-l border-gray-300 h-6 mx-4"></span>
                             {/* Dừng hoạt động or Kích hoạt lại button */}
                             <button
                                 className="text-red-500 flex items-center space-x-2"
@@ -382,7 +396,7 @@ function TournamentList() {
                             </button>
                         </div>
                     ))}
-                
+    
                     {/* Modal confirm delete */}
                     <Modal
                         title="Xác nhận xóa giải đấu"
@@ -402,11 +416,10 @@ function TournamentList() {
                         <p>Bạn có chắc chắn muốn xóa giải đấu "{clubToDelete?.name}" không?</p>
                     </Modal>
                 </div>
-
             )}
-
-            {/* Phân trang */}
-            {!isDetailView ? (
+    
+            {/* Phân trang nếu không phải đang ở chế độ xem lịch thi đấu */}
+            {!showViewTournament && (
                 <div className="flex justify-center mt-6">
                     <Pagination
                         current={currentPage}
@@ -416,20 +429,10 @@ function TournamentList() {
                         showSizeChanger={false}
                     />
                 </div>
-            ) : (
-                <div className="flex justify-center mt-6">
-                    <Pagination
-                        current={currentPageTeam}
-                        pageSize={itemsPerPageTeam}
-                        total={clubDetail.length}
-                        onChange={handlePageChangeTeam}
-                        showSizeChanger={false}
-                    />
-                </div>
             )}
-
         </div>
     );
+    
 }
 
 export default TournamentList;

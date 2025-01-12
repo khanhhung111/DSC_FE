@@ -1,15 +1,16 @@
-import { useEffect, useState ,useCallback} from "react";
+import { useEffect, useState, useCallback } from "react";
 import Header from '../../components/Header/Hearder';
 import styles from './TournamentForm.module.css';
-import { useNavigate,useLocation} from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import LocaleProvider from 'antd/es/locale';
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { createTournament,createPayment,setPayment,deleteTournament,getAllTournamentNames,PaymentforTournament } from "../../utils/tournament"
+import { createTournament, createPayment, setPayment, deleteTournament, getAllTournamentNames, PaymentforTournament } from "../../utils/tournament"
 const TournamentForm = () => {
   const location = useLocation();
+  const [tournamentType, setTournamentType] = useState(''); // 'roundRobin' hoặc 'knockout'
   const navigate = useNavigate();
   const [existingNames, setExistingNames] = useState([]);
   const [selectedSport, setSelectedSport] = useState(null);
@@ -29,7 +30,8 @@ const TournamentForm = () => {
     startTime: '',
     note: '',
     numberOfParticipants: '',
-    teamSize: ''
+    teamSize: '',
+    tournamentType: ''
   });
   const [errors, setErrors] = useState({});
 
@@ -153,6 +155,16 @@ const TournamentForm = () => {
     } else if (formData.teamSize < 1) {
       newErrors.teamSize = 'Số người trong đội phải ít nhất là 1';
     }
+    if (formData.tournamentType === '') {
+      newErrors.tournamentType = 'Phải chọn loại giải đấu';
+    }
+
+    if (formData.tournamentType === 'roundRobin' && (!formData.numberOfParticipants || formData.numberOfParticipants < 2)) {
+      newErrors.numberOfParticipants = 'Số đội phải lớn hơn hoặc bằng 2 cho vòng tròn';
+    }
+    if (formData.tournamentType === 'knockout' && (!formData.numberOfParticipants || ![4, 8, 16, 32].includes(Number(formData.numberOfParticipants)))) {
+      newErrors.numberOfParticipants = 'Số đội phải là 4, 8, 16 hoặc 32 cho loại trực tiếp';
+    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -182,32 +194,32 @@ const TournamentForm = () => {
       console.error('Error in callNetPayment:', err);
     }
   }, [params, toastShown, navigate]);
-  
+
   useEffect(() => {
     if (!toastShown) {
       callNetPayment();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params]); // Chỉ phụ thuộc vào params để tránh gọi lại không cần thiết
-  
-  
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const isNameExist = existingNames.includes(formData.Name.toLowerCase());
-  
+
     if (isNameExist) {
       // Nếu tên trùng, hiển thị thông báo lỗi và không gọi API
       toast.error('Tên giải đấu đã tồn tại!');
       return;
     }
-  
+
     if (!validateForm()) {
       return;
     }
-  
+
     // Format startTime to combine date and time
     const startDateTime = `${formData.startDate}T${formData.startTime}:00`; // Format: "YYYY-MM-DDThh:mm:ss"
-  
+
     const tournamentData = {
       sportId: selectedSport,
       LevelId: levels[selectedLevel].id,
@@ -221,28 +233,29 @@ const TournamentForm = () => {
       startTime: startDateTime,
       numberOfParticipants: formData.numberOfParticipants,
       registrationDeadline: formData.registrationDeadline,
+      tournamentType: formData.tournamentType,
     };
-  
+
     console.log('TournamentData:', selectedFile);
-  
+
     let createdTournamentId = null;
     try {
       const responseTournament = await createTournament({
         tournamentData,
         file: selectedFile
       });
-  
+
       console.log("tournamentId", responseTournament.data.tournamentId);
-      
+
       if (responseTournament.data.tournamentId) {
         createdTournamentId = responseTournament.data.tournamentId;
         const Amount = 200000;
         const response = await createPayment(createdTournamentId, Amount);
-        
+
         if (response.data) {
           // Redirect to VNPay payment page
           window.location.href = response.data;
-          
+
           // Lắng nghe sự kiện beforeunload khi người dùng thoát khỏi trang
           window.addEventListener('beforeunload', async () => {
             // Nếu người dùng chưa thanh toán và đang thoát trang
@@ -259,7 +272,7 @@ const TournamentForm = () => {
     } catch (error) {
       console.error('Error creating tournament:', error);
       toast.error(error.responseTournament?.data?.message || 'Không thể tạo giải đấu');
-      
+
       // If error occurs, make sure tournament is deleted
       if (createdTournamentId) {
         await deleteTournament(createdTournamentId);
@@ -279,7 +292,6 @@ const TournamentForm = () => {
         />
         <div className={styles.bannerContent}>
           <h2 className={styles.bannerTitle}>Giải Đấu</h2>
-          <p className={styles.bannerSubtitle}>Subtitle</p>
           <div className={styles.buttonGroup}>
             <button className={styles.secondaryButton} onClick={() => navigate('/createTournament')}>Tạo Giải Đấu</button>
             <button className={styles.primaryButton} onClick={() => navigate('/managementtournament')}>Tham Gia Giải đấu</button>
@@ -290,7 +302,7 @@ const TournamentForm = () => {
       <div className={styles.tournamentContainer}>
 
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={styles.formtotal}>
           <div className={styles.section}>
             <h3>Chọn môn thể thao</h3>
             <div className={styles.sportsGrid}>
@@ -337,7 +349,7 @@ const TournamentForm = () => {
             </div>
 
             <div className={`${styles.formGroup} ${styles.fullWidth}`}>
-              <label>Hình ảnh</label>
+              <label className={styles.label}>Hình ảnh</label>
               <input
                 type="file"
                 onChange={handleImageChange}
@@ -362,7 +374,7 @@ const TournamentForm = () => {
               </div>
             )}
             <div className={styles.formGroup}>
-              <label>Ngày diễn ra</label>
+              <label className={styles.label}>Ngày diễn ra</label>
               <input
                 type="date"
                 name="startDate"
@@ -373,7 +385,7 @@ const TournamentForm = () => {
             </div>
 
             <div className={styles.formGroup}>
-              <label>Ngày kết thúc</label>
+              <label className={styles.label}>Ngày kết thúc</label>
               <input
                 type="date"
                 name="endDate"
@@ -384,7 +396,7 @@ const TournamentForm = () => {
             </div>
 
             <div className={styles.formGroup}>
-              <label>Hạn đăng kí</label>
+              <label className={styles.label}>Hạn đăng kí</label>
               <input
                 type="date"
                 name="registrationDeadline"
@@ -395,7 +407,7 @@ const TournamentForm = () => {
             </div>
 
             <div className={styles.formGroup}>
-              <label>Địa điểm thi đấu</label>
+              <label className={styles.label}>Địa điểm thi đấu</label>
               <input
                 type="text"
                 name="location"
@@ -407,7 +419,7 @@ const TournamentForm = () => {
             </div>
 
             <div className={styles.formGroup}>
-              <label>Giờ bắt đầu</label>
+              <label className={styles.label}>Giờ bắt đầu</label>
               <input
                 type="time"
                 name="startTime"
@@ -418,7 +430,7 @@ const TournamentForm = () => {
             </div>
 
             <div className={styles.formGroup}>
-              <label>Ghi chú</label>
+              <label className={styles.label}>Ghi chú</label>
               <input
                 type="text"
                 name="note"
@@ -426,30 +438,82 @@ const TournamentForm = () => {
                 onChange={handleInputChange}
               />
             </div>
-
             <div className={styles.formGroup}>
-              <label>Số đội tham gia</label>
-              <select
-                name="numberOfParticipants"
-                value={formData.numberOfParticipants}
-                onChange={handleInputChange}
-                className={styles.selectInput}
-              >
-                <option value="">Chọn số đội</option>
-                <option value="4">4 đội</option>
-                <option value="8">8 đội</option>
-                <option value="16">16 đội</option>
-                <option value="32">32 đội</option>
-              </select>
-              {errors.numberOfParticipants && (
-                <span className={styles.error}>
-                  {errors.numberOfParticipants}
-                </span>
+              <label className={styles.label}>Loại giải đấu</label>
+              <div className={styles.radioGroup}>
+                <label className="radio-label1">
+                  <input
+                    type="radio"
+                    name="tournamentType"
+                    value="roundRobin"
+                    checked={formData.tournamentType === 'roundRobin'}
+                    onChange={(e) => setFormData({ ...formData, tournamentType: e.target.value })}
+                  />
+                  Đấu Vòng Tròn
+                  <span className="tooltip">Mỗi đội thi đấu với tất cả các đội còn lại. Sẽ bao gồm lượt đi và lượt về. Đội có điểm số cao nhất sẽ là người chiến thắng</span>
+                </label>
+                <label className="radio-label">
+                  <input
+                    type="radio"
+                    name="tournamentType"
+                    value="knockout"
+                    checked={formData.tournamentType === 'knockout'}
+                    onChange={(e) => setFormData({ ...formData, tournamentType: e.target.value })}
+                  />
+                  Loại trực tiếp
+                  <span className="tooltip">Các đội bị loại sau mỗi trận thua. Đội nào chiến thắng trong trận chung kết sẽ là nhà vô địch</span>
+                </label>
+
+
+              </div>
+              {errors.tournamentType && (
+                <span className={styles.error}>{errors.tournamentType}</span>
               )}
             </div>
 
+            {formData.tournamentType === 'roundRobin' && (
+              <div className={styles.formGroup}>
+                <label className={styles.label}>Số đội tham gia</label>
+                <input
+                  type="number"
+                  name="numberOfParticipants"
+                  className={styles.input}
+                  placeholder="Nhập số đội"
+                  value={formData.numberOfParticipants}
+                  onChange={handleInputChange}
+                />
+                {errors.numberOfParticipants && (
+                  <span className={styles.error}>{errors.numberOfParticipants}</span>
+                )}
+              </div>
+            )}
+
+            {formData.tournamentType === 'knockout' && (
+              <div className={styles.formGroup}>
+                <label className={styles.label}>Số đội tham gia</label>
+                <select
+                  name="numberOfParticipants"
+                  value={formData.numberOfParticipants}
+                  onChange={handleInputChange}
+                  className={styles.selectInput}
+                >
+                  <option value="">Chọn số đội</option>
+                  <option value="4">4 đội</option>
+                  <option value="8">8 đội</option>
+                  <option value="16">16 đội</option>
+                  <option value="32">32 đội</option>
+                </select>
+                {errors.numberOfParticipants && (
+                  <span className={styles.error}>{errors.numberOfParticipants}</span>
+                )}
+              </div>
+            )}
+
+
+
+
             <div className={styles.formGroup}>
-              <label>Số người trong mỗi đội</label>
+              <label className={styles.label}>Số người trong mỗi đội</label>
               <input
                 type="number"
                 name="teamSize"
@@ -458,6 +522,7 @@ const TournamentForm = () => {
               />
               {errors.teamSize && <span className={styles.error}>{errors.teamSize}</span>}
             </div>
+
           </div>
 
           <div className={styles.submitSection}>
@@ -477,6 +542,52 @@ const TournamentForm = () => {
         draggable
         pauseOnHover
       />
+      <style>
+        {`
+        .radio-label1, .radio-label {
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.tooltip {
+  visibility: hidden;
+  width: 200px;
+  background-color: #45a049;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%; /* Position above the radio button */
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Show the tooltip when the radio button is hovered */
+.radio-label1:hover .tooltip, 
+.radio-label:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+      .radio-label {
+        padding-left: 20px;
+      }
+        .radio-label input[type='radio'] {
+  margin-right: 5px;
+  position: relative;
+  display: inline-block;
+}
+  .radio-label1 input[type='radio'] {
+  margin-right: 5px;
+  position: relative;
+  display: inline-block;
+}
+    `}
+      </style>
     </div>
   );
 };

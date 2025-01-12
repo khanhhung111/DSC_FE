@@ -495,3 +495,9 @@
     background-color: #40a9ff;
     border-color: #40a9ff;
   }
+  .penalty-sup {
+    font-size: 0.8em;
+    vertical-align: super;
+    margin-left: -10px;
+    color: #f39c12;
+  }

@@ -500,3 +500,36 @@
   font-weight: 600;
   margin-right: 8px;
 }
+.score-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.score-input {
+  width: 50px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.penalty-input {
+  width: 40px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff3cd;
+}
+
+.score {
+  display: inline-block;
+  min-width: 30px;
+  text-align: center;
+}
+.penalty-sup {
+  font-size: 0.8em;
+  vertical-align: super;
+  margin-left: -10px;
+  color: #f39c12;
+}
+

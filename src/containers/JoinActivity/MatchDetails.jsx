@@ -17,11 +17,11 @@ function MatchDetails({ matchData }) {
 
   return (
     <section className={styles.matchDetails}>
-      <img
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/50853265154f5d63067e64f710fa527ace98511e05967c947d8eabed1d8d8406?placeholderIfAbsent=true&apiKey=64a11f7ccf9c4f09a01cd9aadc1c5dac"
-        alt="Pickleball match"
-        className={styles.matchImage}
-      />
+        <img
+  src={data.activity.avatar || "https://cdn.builder.io/api/v1/image/assets/TEMP/50853265154f5d63067e64f710fa527ace98511e05967c947d8eabed1d8d8406?placeholderIfAbsent=true&apiKey=64a11f7ccf9c4f09a01cd9aadc1c5dac"}
+  alt="Pickleball match"
+  className={styles.matchImage}
+/>
       <div className={styles.matchInfo}>
         <h1 className={styles.matchTitle}>{data.activity.activityName}</h1>
         <div className={styles.matchMeta}>

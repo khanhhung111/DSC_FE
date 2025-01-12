@@ -6,6 +6,7 @@ import { EnvironmentOutlined, CalendarOutlined, UserOutlined } from "@ant-design
 
 function MatchDetails({matchData}) {
   const data = matchData[0];
+  console.log("undefined",data)
   const formatDateForInput = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
@@ -16,8 +17,13 @@ function MatchDetails({matchData}) {
       <h1 className={styles.matchTitle}>{data?.name}</h1>
       <div className={styles.matchInfo}>
         <div className={styles.infoItem}>
-          <span><CalendarOutlined style={{color: "#faad14" }} /> {dateFormatting(data.startDate)} -  <CalendarOutlined style={{color: "#faad14" }} /> {dateFormatting(data.endDate)}</span>
-        </div>
+  <span>
+    <CalendarOutlined style={{color: "#faad14" }} />
+    {data.startDate ? dateFormatting(data.startDate) : "Ngày bắt đầu không xác định"} - <CalendarOutlined style={{color: "#faad14" }} />
+    {data.endDate ? dateFormatting(data.endDate) : "Ngày kết thúc không xác định"}
+  </span>
+</div>
+
        
       </div>
       <div className={styles.infoItem} style={{paddingBottom:'7px'}}>

@@ -28,7 +28,7 @@ const SportsBetting = () => {
         </div>
         </div>
       <main className={styles.mainContent}>
-        <SegmentedButton />
+        {/* <SegmentedButton /> */}
         <EventList />
       </main>
       <Footer />
