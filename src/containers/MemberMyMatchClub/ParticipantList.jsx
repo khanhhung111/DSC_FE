@@ -32,7 +32,7 @@ function ParticipantList({ memberdata }) {
               <div className={styles.participantInfo}>
                 <h3 className={styles.participantName}>{fullName}</h3>
                 <p className={styles.participantDetails}>
-                  Chức năng: {roleActivity}
+                  Chức năng: {roleActivity} • Trình độ: {levelName}
                 </p>
               </div>
             </li>

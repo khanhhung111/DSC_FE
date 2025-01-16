@@ -20,7 +20,6 @@ function AccountDetails() {
         }
       } catch (error) {
         console.error('Error fetching user info:', error);
-        toast.error('Không thể tải thông tin người dùng');
       } finally {
         setLoading(false);
       }

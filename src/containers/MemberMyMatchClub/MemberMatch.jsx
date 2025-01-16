@@ -16,7 +16,7 @@ function Match() {
       try {
         setLoading(true);
         const response = await getMemberActivityClub(activityclubId); // Truyền trực tiếp activityId
-        console.log("response",response);
+    
         if (response.data) {
             setmemberdata(response.data);
             console.log(response.data);

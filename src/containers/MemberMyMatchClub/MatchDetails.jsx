@@ -103,14 +103,25 @@ function MatchDetails({ memberdata }) {
         </p>
 
         <div className={styles.matchActions}>
-          {!hasJoined && (
-            <button className={styles.resultsButton} onClick={handleJoinActivityClub}>
-              Tham gia
-            </button>
-          )}
-          <button className={styles.joinButton} onClick={() => navigate(`/membermatchclub/${data.activity.activityId}`)}>Người tham gia</button>
-          <button className={styles.resultsButton} onClick={() => navigate(`/resultmatchclub/${data?.activity.activityId}`)}>Kết quả</button>
-        </div>
+   <button
+        className={styles.resultsButton}
+        onClick={() => handleButtonClick(`/updatesporteventclub/${activityclubId}`)}
+      >
+        Chỉnh Sửa
+      </button>
+      <button
+        className={styles.joinButton}
+        onClick={() => handleButtonClick(`/membermymatchclub/${activityclubId}`)}
+      >
+        Người tham gia
+      </button>
+      <button
+        className={styles.resultsButton}
+        onClick={() => handleButtonClick(`/resultmymatchclub/${activityclubId}`)}
+      >
+        Kết quả
+      </button>
+   </div>
       </div>
     </section>
   );

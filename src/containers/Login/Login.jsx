@@ -1,4 +1,4 @@
-import React from "react";
+import { useState ,React} from "react";
 import LoginForm from "./LoginForm";
 import styles from "./Login.module.css";
 import Header from "../../components/Header/Hearder";
@@ -6,7 +6,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
+import { logingoogle } from '../../utils/auth';
 function Login() {
+    const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+      const [error, setError] = useState('');
   const socialButtons = [
     {
       name: "Facebook",
@@ -20,7 +25,7 @@ function Login() {
     },
   ];
 
-  const handleGoogleLoginSuccess = (credentialResponse) => {
+  const handleGoogleLoginSuccess = async (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
       
       const userData = {
@@ -30,8 +35,41 @@ function Login() {
       };
 
     console.log("userData",userData);
-    // Ở đây bạn có thể xử lý thông tin đăng nhập, ví dụ gửi lên server hoặc lưu vào state
-    toast.success("Logged in successfully with Google!");
+    try{
+      const response = await logingoogle(userData);
+      console.log(response);
+        if (response && response.success) {
+        // Handle successful login
+        if(response.roleId === "Admin") {
+          localStorage.setItem('userEmail', response.email);
+          localStorage.setItem('userId', response.userId);
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('Fund', response.Fund);
+          toast.success("Đăng nhập thành công!", { autoClose: 1000 });
+          setTimeout(() => {
+            navigate('/admin'); // Navigate to admin page
+          }, 1200);
+        } else {
+          localStorage.setItem('userEmail', response.email);
+          localStorage.setItem('userId', response.userId);
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('fullName', response.fullName);
+          localStorage.setItem('avatar', response.avatar);
+          toast.success("Đăng nhập thành công!", { autoClose: 1000 });
+          setTimeout(() => {
+            navigate('/'); // Navigate to user page
+          }, 1200);
+        }
+      } else if (response && response.response.data.success === false){
+        throw new Error(response.response?.data.message || "Có lỗi xảy ra");
+      }
+    }
+    catch (error) {
+          console.error('Error details:', error);
+          const errorMessage = error.response?.data?.message || error.message || "Có lỗi xảy ra";
+          setError(errorMessage);
+          toast.error(errorMessage);
+        }
   };
 
   const handleGoogleLoginError = () => {
@@ -52,7 +90,7 @@ function Login() {
           </div>
           <div className={styles.formColumn}>
             <LoginForm />
-            <section className={styles.socialLogin}>
+            {/* <section className={styles.socialLogin}>
               {socialButtons.map((button, index) => (
                 button.name === "Google" ? (
                   <GoogleLogin
@@ -82,7 +120,41 @@ function Login() {
                   </button>
                 )
               ))}
-            </section>
+            </section> */}
+            <section style={{ width: '280px', margin: '20px 0' }}>
+  <GoogleLogin
+    onSuccess={handleGoogleLoginSuccess}
+    onError={handleGoogleLoginError}
+    useOneTap
+    render={(renderProps) => (
+      <button 
+        className={styles.socialButton}
+        onClick={renderProps.onClick}
+        disabled={renderProps.disabled}
+        style={{ 
+          width: '100%', 
+          height: '45px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '10px',
+          padding: '10px 16px',
+          border: '1px solid #ddd',
+          borderRadius: '8px',
+          backgroundColor: 'white',
+          cursor: 'pointer'
+        }}
+      >
+        <img 
+          src="/assets/icons/google.png" 
+          alt="Google icon" 
+          className={styles.socialIcon} 
+        />
+        <span>Tiếp tục với Google</span>
+      </button>
+    )}
+  />
+</section>
           </div>
         </section>
       </main>

@@ -51,7 +51,7 @@ function MatchDetails({matchData}) {
       </button>
       <button
         className={styles.resultsButton}
-        onClick={() => handleButtonClick(`/membermatchclub/${data?.activityClubId}`)}
+        onClick={() => handleButtonClick(`/membermymatchclub/${data?.activityClubId}`)}
       >
         Người tham gia
       </button>

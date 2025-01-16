@@ -1,4 +1,4 @@
-import { useState ,React} from "react";
+import { useState, React } from "react";
 import styles from "./LoginForm.module.css";
 import { useNavigate } from 'react-router-dom';
 import { login } from "../../utils/auth";
@@ -27,7 +27,7 @@ function LoginForm() {
         setError("Mật khẩu phải có ít nhất 8 ký tự");
         return false;
       }
-      setError(""); 
+      setError("");
       return true;
     } catch (error) {
       setError("Có lỗi xảy ra khi kiểm tra form");
@@ -38,15 +38,13 @@ function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-  
+
     setIsLoading(true);
     try {
       const response = await login(email, password);
       console.log("response", response);
-  
       if (response && response.success) {
-        // Handle successful login
-        if(response.roleId === "Admin") {
+        if (response.roleId === "Admin") {
           localStorage.setItem('userEmail', email);
           localStorage.setItem('userId', response.userId);
           localStorage.setItem('isLoggedIn', 'true');
@@ -66,7 +64,7 @@ function LoginForm() {
             navigate('/'); // Navigate to user page
           }, 1200);
         }
-      } else if (response && response.response.data.success === false){
+      } else if (response && response.response.data.success === false) {
         throw new Error(response.response?.data.message || "Có lỗi xảy ra");
       }
     } catch (error) {
@@ -78,7 +76,7 @@ function LoginForm() {
       setIsLoading(false);
     }
   };
-  
+
 
   return (
     <section className={styles.LoginSection}>
@@ -87,8 +85,8 @@ function LoginForm() {
         Đăng nhập tài khoản để truy cập vào các tính năng của chúng tôi
       </p>
       <form className={styles.form} onSubmit={handleSubmit}>
-      
-      <div className={styles.formGroup}>
+
+        <div className={styles.formGroup}>
           <label htmlFor="email" className={styles.label}>
             Địa chỉ Email
           </label>
@@ -138,9 +136,13 @@ function LoginForm() {
       </form>
       <p className={styles.loginPrompt}>
         Bạn chưa có tài khoản?{" "}
-        <a href="/SignUp" className={styles.loginLink}>
+        <span
+          className={styles.loginLink}
+          onClick={() => navigate('/signup')}
+          style={{ cursor: 'pointer' }}
+        >
           Đăng kí
-        </a>
+        </span>
       </p>
     </section>
   );

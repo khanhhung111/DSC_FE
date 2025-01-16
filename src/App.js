@@ -30,6 +30,7 @@ import AccountSport from "./containers/AccountPage/AccountSport";
 import AddSportAcc from "./containers/AccountPage/AddSportAcc";
 import MemberMatch from "./containers/MemberMatch/MemberMatch";
 import MemberMatchClub from "./containers/MemberMatchClub/MemberMatch";
+import MemberMyMatchClub from "./containers/MemberMyMatchClub/MemberMatch";
 import Match from "./containers/DetailMatch/Match";
 import DetailMatchClub from "./containers/DetailMatchClub/Match";
 
@@ -105,6 +106,7 @@ function App() {
           <Route path="/addsportsacc" element={<AddSportAcc />} />
           <Route path="/membermatch/:activityId" element={<MemberMatch />} />
           <Route path="/membermatchclub/:activityclubId" element={<MemberMatchClub />} />
+          <Route path="/membermymatchclub/:activityclubId" element={<MemberMyMatchClub />} />
           <Route path="/membermymatch/:activityId" element={<MemberMyMatch />} />
           <Route path="/approvemember/:activityId" element={<JoinActivity />} />
           <Route path="/detailmatch/:activityId" element={<Match />} />

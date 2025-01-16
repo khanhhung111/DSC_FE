@@ -176,12 +176,15 @@ function SignUpForm() {
           Đăng ký
         </button>
       </form>
-      
       <p className={styles.loginPrompt}>
-        Bạn đã có tài khoản?{" "}
-        <a href="/login" className={styles.loginLink}>
+        Bạn chưa có tài khoản?{" "}
+        <span
+          className={styles.loginLink}
+          onClick={() => navigate('/login')}
+          style={{ cursor: 'pointer' }}
+        >
           Đăng nhập
-        </a>
+        </span>
       </p>
     </section>
   );

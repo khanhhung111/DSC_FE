@@ -42,21 +42,25 @@ const EventList = () => {
   }
 
   const groupEventsByDate = (events) => {
-    // Đảm bảo events là mảng và không rỗng
     if (!Array.isArray(events) || events.length === 0) return [];
-  
+
     const grouped = events.reduce((groups, event) => {
-      // Kiểm tra startDate tồn tại
       if (!event.startDate) return groups;
-  
-      const date = new Date(event.startDate).toLocaleDateString();
-      if (!groups[date]) {
-        groups[date] = [];
+
+      const date = new Date(event.startDate);
+      const formattedDate = date.toLocaleDateString('vi-VN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      });
+
+      if (!groups[formattedDate]) {
+        groups[formattedDate] = [];
       }
-      groups[date].push(event);
+      groups[formattedDate].push(event);
       return groups;
     }, {});
-  
+
     return Object.entries(grouped).sort(([dateA], [dateB]) => {
       return new Date(dateA) - new Date(dateB);
     });

@@ -42,7 +42,7 @@ function MatchDetails({ memberdata }) {
           </p>
         </div>
         <p className={styles.participantCount}>
-          Số người tham gia: {uniqueMembers.length} / {data.activity.numberOfTeams}
+          Số người tham gia: {data.playerCount} / {data.activity.numberOfTeams}
         </p>
         <p className={styles.matchPrice}>$ {data.activity.expense.toLocaleString()}đ</p>
         <div className={styles.matchActions}>

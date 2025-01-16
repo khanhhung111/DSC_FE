@@ -40,35 +40,42 @@
     }
   }
   .socialLogin {
-    margin-top: 24px;
+    display: flex;
+    justify-content: flex-start; /* Thay đổi từ center thành flex-start */
+    margin: 20px 0;
+    width: 280px;
+    height: 150px;
+    /* margin: 20px auto; */ /* Bỏ margin auto nếu bạn muốn container cũng nằm bên trái */
+    margin: 20px 0; /* Chỉ để margin top và bottom */
   }
   
-  .socialButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .socialLogin button {
     width: 100%;
-    max-width: 316px;
-    border-radius: 40px;
-    background-color: #fff;
-    border: 1px solid #333;
-    padding: 16px;
-    margin-bottom: 24px;
+    height: 150px; /* Tăng chiều cao */
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    gap: 10px;
+    padding: 10px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
     cursor: pointer;
-    font-size: 23px;
-    color: #333;
-    font-weight: 400;
+    transition: background-color 0.2s;
+  }
+  
+  .socialLogin button:hover {
+    background-color: #f5f5f5;
   }
   
   .socialIcon {
-    width: 32px;
-    height: 32px;
-    margin-right: 16px;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
   }
   
-  @media (max-width: 991px) {
-    .socialButton {
-      max-width: 100%;
-      padding: 16px 20px;
-    }
+  .socialLogin button span {
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
   }
