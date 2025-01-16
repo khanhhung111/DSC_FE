@@ -114,6 +114,7 @@ function ClubPage() {
           )}
         </section>
       </main>
+      <ToastContainer position="top-right" autoClose={5000} />
       <Footer />
     </div>
   );
