@@ -1,30 +1,27 @@
-
 .searchBar {
   border-radius: 28px;
   background-color: rgba(98, 91, 113, 0.08);
-  position: absolute;
-  z-index: 1;
+  position: relative;
   display: flex;
-  width: 360px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 360px;
   align-items: center;
-  overflow: hidden;
-  right: 8px;
-  top: -92px;
-  height: 56px;
-  padding: 0 27px;
+  padding: 0 15px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 20px 20px 20px auto; /* Thay đổi ở đây: 20px top, 20px right, 20px bottom, auto left */
+  justify-content: flex-end;
 }
 
 .searchInput {
-  flex: 1;
+  flex: 1; /* Input sẽ chiếm phần lớn chiều rộng */
   border: none;
   background: transparent;
   color: var(--Schemes-On-Surface-Variant, #49454f);
   font: 16px/24px Roboto, sans-serif;
   letter-spacing: 0.5px;
-  padding: 4px;
+  padding: 6px;
   outline: none;
+  min-width: 0; /* Đảm bảo input không bị co lại quá mức */
 }
 
 .searchButton {
@@ -51,8 +48,36 @@
   border: 0;
 }
 
+/* Media query cho responsive */
 @media (max-width: 991px) {
   .searchBar {
     padding: 0 20px;
+    margin: 10px 20px 10px auto; /* Cập nhật margin ở đây */
+  }
+
+  .searchInput {
+    font-size: 14px; /* Giảm kích thước chữ để phù hợp với các màn hình nhỏ hơn */
+    padding: 5px;
+  }
+
+  .searchButton {
+    padding: 6px; /* Giảm kích thước của button */
+  }
+}
+
+@media (max-width: 576px) {
+  .searchBar {
+    width: 90%;
+    max-width: 320px;
+    margin: 10px 10px 10px auto; /* Cập nhật margin ở đây */
+  }
+
+  .searchInput {
+    font-size: 14px; /* Kích thước chữ nhỏ hơn */
+    padding: 5px; /* Giảm padding */
+  }
+
+  .searchButton {
+    padding: 6px; /* Giảm kích thước của button */
   }
 }

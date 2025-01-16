@@ -14,11 +14,11 @@ const EventList = () => {
     const fetchActivity = async () => {
       try {
         setLoading(true); // Bắt đầu loading
-        const response = await getAllActivityClub( clubId ); // Gửi request để lấy dữ liệu
+        const response = await getAllActivityClub(clubId); // Gửi request để lấy dữ liệu
         if (response.data) {
           if (response.data.$values && Array.isArray(response.data.$values)) {
-            setEvents(response.data.$values); 
-            console.log("datane",response.data.$values);
+            setEvents(response.data.$values);
+            console.log("datane", response.data.$values);
           } else {
             console.error('Dữ liệu không phải là một mảng:', response.data);
             toast.error('Dữ liệu sự kiện không đúng định dạng');
@@ -67,7 +67,7 @@ const EventList = () => {
       return new Date(dateA) - new Date(dateB);
     });
   };
-  
+
   return (
     <section className={styles.eventList}>
       {groupEventsByDate(events).map(([date, dailyEvents]) => {
@@ -77,12 +77,12 @@ const EventList = () => {
         return (
           <div key={date} className={styles.dayGroup}>
             <h2 className={styles.dateHeader}>
-  {headerDate.toLocaleDateString('vi-VN', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long'
-  }) + ` năm ${headerDate.getFullYear()}`}
-</h2>
+              {headerDate.toLocaleDateString('vi-VN', {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long'
+              }) + ` năm ${headerDate.getFullYear()}`}
+            </h2>
             <div className={styles.dayContent}>
               <div className={styles.timeColumn}>
                 {dailyEvents.map((event, index) => {
@@ -117,8 +117,8 @@ const EventList = () => {
                     expense={event.expense}
                     description={event.description}
                     levelname={event.levelName}
-                    numberOfParticipants= {event.numberOfParticipants}
-                    avatar = {event.avatar}
+                    numberOfParticipants={event.numberOfParticipants}
+                    avatar={event.avatar}
                   />
                 ))}
               </div>

@@ -1,11 +1,31 @@
 import React from "react";
 import styles from "./MemberMatch.module.css";
 import { useNavigate } from 'react-router-dom';
-
+import {requestJoinActivity} from '../../utils/activity';
+import { toast } from 'react-toastify';
 function MatchDetails({ memberdata }) {
   const navigate = useNavigate();
   const data = memberdata;
-
+  const userId = localStorage.getItem('userId');
+  const activityId = data?.activity.activityId;
+  const handleJoinActivity = async () => {
+    try {
+      const response = await requestJoinActivity(userId, activityId );
+      if (response.data.success == true) {
+        console.log("result", response);
+        toast.success(response.data.message, {
+          autoClose: 1200,
+        });
+      } else {
+        throw new Error(response?.message || "Có lỗi xảy ra");
+      }
+    } catch (error) {
+      console.error("Lỗi:", error);
+      toast.error("Có lỗi xảy ra khi chấp nhận yêu cầu.", {
+        autoClose: 1000,
+      });
+    }
+  };
   // Kiểm tra xem data?.activity có tồn tại hay không
   if (!data?.activity) {
     return (
@@ -21,10 +41,10 @@ function MatchDetails({ memberdata }) {
   return (
     <section className={styles.matchDetails}>
       <img
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/50853265154f5d63067e64f710fa527ace98511e05967c947d8eabed1d8d8406?placeholderIfAbsent=true&apiKey=64a11f7ccf9c4f09a01cd9aadc1c5dac"
-        alt="Pickleball match"
-        className={styles.matchImage}
-      />
+     src={data?.activity.avatar || "https://cdn.builder.io/api/v1/image/assets/TEMP/50853265154f5d63067e64f710fa527ace98511e05967c947d8eabed1d8d8406?placeholderIfAbsent=true&apiKey=64a11f7ccf9c4f09a01cd9aadc1c5dac"}
+     alt="Pickleball match"
+     className={styles.matchImage}
+   />
       <div className={styles.matchInfo}>
         <h1 className={styles.matchTitle}>{data.activity.activityName}</h1>
         <div className={styles.matchMeta}>
@@ -43,9 +63,9 @@ function MatchDetails({ memberdata }) {
         </p>
         <p className={styles.matchPrice}>$ {data.activity.expense.toLocaleString()}đ</p>
         <div className={styles.matchActions}>
-          <button className={styles.participantsButton} onClick={() => navigate('#')}>Tham gia</button>
-          <button className={styles.joinButton} onClick={() => navigate(`/detailmatch/${data.activity.activityId}`)}>Người tham gia</button>
-          <button className={styles.resultsButton} onClick={() => navigate('/resultmatch')}>Kết quả</button>
+          <button className={styles.participantsButton} onClick={() => handleJoinActivity()}>Tham gia</button>
+          <button className={styles.joinButton} onClick={() => navigate(`/membermatch/${data.activity.activityId}`)}>Người tham gia</button>
+          <button className={styles.resultsButton} onClick={() => navigate(`/resultmatch/${data.activity.activityId}`)}>Kết quả</button>
         </div>
       </div>
     </section>

@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     /* padding: 0 0 712px 9px; */
+    background-color: #fff;
   }
   
   @media (max-width: 991px) {
@@ -96,6 +97,7 @@
   }
   
   .matchDetails {
+    background-color: #fff;
     display: flex;
     padding: 24px;
     gap: 24px;

@@ -4,7 +4,18 @@ import styles from "./ClubItem.module.css";
 
 function ClubItem({ clubId, clubName, userCount, levelName, status, avatar }) {
   const navigate = useNavigate(); // Khởi tạo navigate
-
+  const getStatusText = (status) => {
+    switch (status) {
+      case "Active":
+        return "Đang Hoạt Động";
+      case "Inactive":
+        return "Dừng Hoạt Động";
+      case "Expired":
+        return "Hết Hạn";
+      default:
+        return status;
+    }
+  };
   // Đặt màu cho chữ dựa trên trạng thái
   const statusTextClass = status === "Active" ? styles.activeText : styles.inactiveText;
 
@@ -24,7 +35,7 @@ function ClubItem({ clubId, clubName, userCount, levelName, status, avatar }) {
           {userCount} thành viên • Cấp độ: {levelName}
         </p>
         <p className={styles.clubStatus}>
-          Trạng thái: <span className={statusTextClass}>{status}</span>
+        Trạng thái: <span className={statusTextClass}>{getStatusText(status)}</span>
         </p>
       </div>
       <button className={styles.viewMoreButton} onClick={handleViewMore}>Xem thêm</button>

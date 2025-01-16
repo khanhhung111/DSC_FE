@@ -47,6 +47,8 @@ import CreateSportEvent from "./containers/CreateSportEvent/CreateSportEvent";
 import CreateSportEventClub from "./containers/CreateSportEventClub/CreateSportEvent";
 import ResultMatch from "./containers/ResultMatch/ResultMatch";
 import ResultMyMatch from "./containers/ResultMyMatch/ResultMatch";
+import ResultMatchClub from "./containers/ResultMatchClub/ResultMatchClub";
+import ResultMyMatchClub  from "./containers/ResultMyMatchClub/ResultMatchClub";
 import Security from "./containers/Security/Security";
 import UpdateSportEvent from "./containers/UpdateSportEvent/UpdateSportEvent";
 import UpdateSportEventClub from "./containers/UpdateSportEventClub/UpdateSportEvent";
@@ -117,6 +119,8 @@ function App() {
           <Route path="/updatesporteventclub/:activityclubId" element={<UpdateSportEventClub />} />
           <Route path="/resultmatch/:activityId" element={<ResultMatch />} />
           <Route path="/resultmymatch/:activityId" element={<ResultMyMatch />} />
+          <Route path="/resultmatchclub/:activityclubId" element={<ResultMatchClub />} />
+          <Route path="/resultmymatchclub/:activityclubId" element={<ResultMyMatchClub />} />
           <Route path="/security" element={<Security />} />
           <Route path="/createTournament" element={<TournamentForm />} />
           <Route path="/mytournament" element={<MyTournament />} />

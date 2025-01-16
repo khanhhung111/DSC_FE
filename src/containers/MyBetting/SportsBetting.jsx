@@ -5,7 +5,7 @@ import EventList from './EventList';
 import Footer from '../../components/Footer/Footer';
 import styles from './SportsBetting.module.css';
 import { useNavigate } from 'react-router-dom';
-
+import CreateBetButton from './CreateBetButton'; // Import component
 
 const SportsBetting = () => {
   const navigate = useNavigate();
@@ -20,7 +20,6 @@ const SportsBetting = () => {
         />
         <div className={styles.bannerContent}>
           <h2 className={styles.bannerTitle}>Kèo thể thao</h2>
-          <p className={styles.bannerSubtitle}>Subtitle</p>
           <div className={styles.buttonGroup}>
             <button className={styles.primaryButton} onClick={() => navigate('/sportbetting')}>Tất cả các kèo thể thao</button>
             <button className={styles.secondaryButton} onClick={() => navigate('/management-betting')}>Quản lý kèo thể thao của tôi</button>
@@ -29,10 +28,7 @@ const SportsBetting = () => {
       </div>
       <main className={styles.mainContent}>
         <SegmentedButton />
-        <button className={styles.greenButton} onClick={() => navigate('/createsportevent')}>
-          
-          + Tạo kèo thể thao
-        </button>
+        <CreateBetButton />
         <EventList />
       </main>
       <Footer />

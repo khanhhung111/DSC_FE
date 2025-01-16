@@ -1,15 +1,16 @@
 import React from 'react';
 import HeaderLogin from '../../components/Header/Hearder';
-import SegmentedButton from './SegmentedButton';
 import EventList from './EventList';
 import Footer from '../../components/Footer/Footer';
 import styles from './SportsBetting.module.css';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import CreateBetButton from './CreateBetButton'; // Import component
 
 const SportsBetting = () => {
   const { clubId } = useParams();
   const navigate = useNavigate();
+  
   return (
     <div className={styles.sportsBetting}>
       <HeaderLogin />
@@ -23,16 +24,12 @@ const SportsBetting = () => {
           <h2 className={styles.bannerTitle}>Kèo Câu Lạc Bộ</h2>
           <div className={styles.buttonGroup}>
             <button className={styles.secondaryButton} onClick={() => navigate('#')}>Tất cả các kèo trong CLB</button>
-            {/* <button className={styles.primaryButton} onClick={() => navigate('/management-betting')}>Quản lý kèo CLB của tôi</button> */}
           </div>
         </div>
-        </div>
+      </div>
       <main className={styles.mainContent}>
-        <SegmentedButton />
-        <button className={styles.greenButton}  onClick={() => navigate(`/createsporteventclub/${clubId}`)}>
-          
-          + Tạo kèo thể thao
-        </button>
+        {/* Sử dụng component CreateBetButton */}
+        <CreateBetButton clubId={clubId} />
         <EventList />
       </main>
       <Footer />

@@ -1,4 +1,5 @@
 .matchContainer {
+  background-color: #fff;
     max-width: none;
     display: flex;
     flex-direction: column;

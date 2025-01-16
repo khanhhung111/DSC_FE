@@ -8,7 +8,7 @@ function MatchDescription({matchData}) {
       
       <h3 className={styles.descriptionTitle}>Luật của Câu Lạc Bộ</h3>
       <ul>
-        {data.rules}
+      <div dangerouslySetInnerHTML={{ __html: data.rules }} />
       </ul>
     </section>
   );

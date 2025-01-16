@@ -23,3 +23,24 @@
   background-color: #4caf4f;
   color: #fff;
 }
+.stopButton {
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.stopButton {
+  background-color: #fff;
+  color: #4caf4f;
+  border: 1px solid #4caf4f;
+}
+.stopButton {
+  color: red; /* Màu chữ đỏ */
+  border-color: red; /* Viền đỏ */
+}
+
+.stopButton:hover {
+  background-color: rgba(255, 0, 0, 0.1); /* Nền khi hover cho nút Dừng Hoạt Động */
+  color: red; /* Giữ màu chữ đỏ khi hover */
+}

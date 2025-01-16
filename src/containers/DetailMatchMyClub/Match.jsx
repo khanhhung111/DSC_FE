@@ -1,6 +1,5 @@
 import HeaderLogin from "../../components/Header/Hearder"
 import MatchDetails from "./MatchDetails";
-import ActionButtons  from "./ActionButtons";
 import MatchDescription from "./MatchDescription";
 import LocationMap from "./LocationMap";
 import styles from "./Match.module.css";
@@ -51,7 +50,6 @@ function PickleballMatch() {
       <HeaderLogin />
       <section className={styles.content}>
         <MatchDetails matchData={matchData}/>
-        <ActionButtons matchData={matchData}/>
         <LocationMap matchData={matchData}/>
         <MatchDescription matchData={matchData}/>
         

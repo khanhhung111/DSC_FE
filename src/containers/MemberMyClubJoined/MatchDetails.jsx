@@ -7,6 +7,18 @@ import { Modal } from 'antd'; // Import Modal từ Ant Design
 import 'react-toastify/dist/ReactToastify.css';
 import { outClub } from "../../utils/club";
 function MatchDetails({ memberdata }) {
+  const getStatusText = (status) => {
+    switch (status) {
+      case "Active":
+        return "Đang Hoạt Động";
+      case "Inactive":
+        return "Dừng Hoạt Động";
+      case "Expired":
+        return "Hết Hạn";
+      default:
+        return status;
+    }
+  };
   const navigate = useNavigate();
   const data = memberdata;
   console.log("memberdata",data)
@@ -86,13 +98,13 @@ function MatchDetails({ memberdata }) {
           </div>
         <div className={styles.infoItem}>
           <BulbOutlined className={styles.icon} />
-            <span>
+          <span>
               Trạng thái:
               <span className={styles.statusSpace}> </span> {/* Thêm khoảng trắng */}
               <span
                 className={data.status === "Active" ? styles.activeStatus : styles.inactiveStatus}
               >
-                {data.status}
+                {getStatusText(data.status)}
               </span>
             </span>
           </div>
@@ -104,7 +116,7 @@ function MatchDetails({ memberdata }) {
         Rời Câu Lạc Bộ
       </button>
           <button className={styles.joinButton} onClick={() => navigate(`/membermyclubjoined/${data.clubId}`)}>Thành Viên</button>
-          <button className={styles.participantsButton} onClick={() => navigate(`/approvemember/${data.activity.activityId}`)}>Kèo</button>
+          <button className={styles.participantsButton} onClick={() => navigate(`/sportbettingmyclub/${data?.clubId}`)}>Kèo</button>
           
         </div>
       </div>

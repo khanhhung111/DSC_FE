@@ -48,7 +48,7 @@ const EventItem = ({ activityId,activityName, levelname, location, numberOfTeams
           Ngày bắt đầu: {dateFormatting(startDate)}
         </p>
       </div>
-      <button className={styles.moreButton} onClick={() => handleButtonClick()}>More</button>
+      <button className={styles.moreButton} onClick={() => handleButtonClick()}>Xem thêm</button>
     </article>
   );
 };

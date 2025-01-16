@@ -110,8 +110,8 @@ function CustomerDetail({ details, onSave, onClose }) {
               onChange={handleInputChange}
               className={styles.select}
             >
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
+              <option value="Active">Hoạt Động</option>
+              <option value="Inactive">Dừng Hoạt Động</option>
             </select>
           }
         />

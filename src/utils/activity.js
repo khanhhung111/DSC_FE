@@ -254,11 +254,32 @@ const GetResults = (activityId) => {
     .then((result) => result)
     .catch((error) => error);
 };
+const GetResultsClub = (activityClubId) => {
+  return axios(
+    configuration({
+      method: "get",
+      path: `/Activity/GetResultsClub/${activityClubId}`,
+    })
+  )
+    .then((result) => result)
+    .catch((error) => error);
+};
 const UpdateScore = (payload) => {
   return axios(
     configuration({
       method: "put",
       path: `/Activity/UpdateResults`,
+      data: payload,
+    })
+  )
+    .then((result) => result)
+    .catch((error) => error);
+};
+const UpdateScoreClub = (payload) => {
+  return axios(
+    configuration({
+      method: "put",
+      path: `/Activity/UpdateResultsClub`,
       data: payload,
     })
   )
@@ -275,6 +296,16 @@ const GetComments = (activityId) => {
     .then((result) => result)
     .catch((error) => error);
 };
+const GetCommentsClub = (activityClubId) => {
+  return axios(
+    configuration({
+      method: "get",
+      path: `/Activity/GetCommentsClub/${activityClubId}`,
+    })
+  )
+    .then((result) => result)
+    .catch((error) => error);
+};
 const AddComment = async (commentData) => {
   return axios(
     configuration({
@@ -286,11 +317,32 @@ const AddComment = async (commentData) => {
     .then((result) => result)
     .catch((error) => error);
 };
+const AddCommentClub = async (commentData) => {
+  return axios(
+    configuration({
+      method: "put",
+      path: `/Activity/AddCommentClub`,
+      data: commentData,
+    })
+  )
+    .then((result) => result)
+    .catch((error) => error);
+};
 const DeleteComment = (commentId) => {
   return axios(
     configuration({
       method: "delete",
       path: `/Activity/DeleteComment/${commentId}`,
+    })
+  )
+    .then((result) => result)
+    .catch((error) => error);
+};
+const DeleteCommentClub = (commentId) => {
+  return axios(
+    configuration({
+      method: "delete",
+      path: `/Activity/DeleteCommentClub/${commentId}`,
     })
   )
     .then((result) => result)
@@ -321,5 +373,10 @@ export {
     UpdateScore ,
     GetComments,
     AddComment,
-    DeleteComment
+    DeleteComment,
+    GetResultsClub,
+    GetCommentsClub,
+    AddCommentClub,
+    DeleteCommentClub,
+    UpdateScoreClub
   };

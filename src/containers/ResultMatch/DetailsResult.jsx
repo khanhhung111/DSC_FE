@@ -1,20 +1,92 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './DetailsResult.module.css';
+import { GetResults, GetComments, AddComment } from '../../utils/activity'; // Thêm DeleteComment vào utils
+import { toast } from 'react-toastify';
 
-function DetailsResult() {
-  const [comments, setComments] = useState([
-    { id: 1, user: 'Hưng', text: 'Đội 1 chơi hay, cầu thủ giỏi, 1 trận đấu kịch tính và mọi người đều vui vẻ với nhau' },
-    { id: 2, user: 'Tùng', text: 'Đội 2 chơi rất mẫu lửa nhưng cũng thân thiện vui vẻ, đội tôi thua cũng nhờ may mắn thôi' }
-  ]);
+function DetailsResult({ matchData }) {
+  const data = matchData[0];
+  const activityId = data.activityId;
+  const userId = localStorage.getItem('userId');
+  const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [team1Score, setTeam1Score] = useState('');
+  const [team2Score, setTeam2Score] = useState('');
+  const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
 
-  const handleCommentSubmit = (e) => {
+  // Fetch kết quả và bình luận
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const resultResponse = await GetResults(activityId);
+        setResult(resultResponse.data);
+        if (resultResponse.data) {
+          setTeam1Score(resultResponse.data.team1Score);
+          setTeam2Score(resultResponse.data.team2Score);
+        }
+
+        const commentsResponse = await GetComments(activityId);
+        setComments(commentsResponse.data.$values || []);
+      } catch (error) {
+        console.error('Lỗi khi lấy kết quả hoặc bình luận:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [activityId]);
+
+  const sensitiveWords = [
+    "bạo lực", "chửi thề", "mẹ", "con cặc", "đánh","cc","cl","lồn","loz","đcm","đm","đmm","đé","cẹ"// thêm các từ ngữ phản cảm vào đây
+    // Bạn có thể mở rộng danh sách các từ ngữ nhạy cảm này
+  ];
+  
+  const containsSensitiveWords = (comment) => {
+    // Kiểm tra nếu bình luận có chứa từ ngữ nhạy cảm
+    return sensitiveWords.some(word => comment.toLowerCase().includes(word));
+  };
+  
+  const handleCommentSubmit = async (e) => {
     e.preventDefault();
+  
     if (newComment.trim()) {
-      setComments([...comments, { id: comments.length + 1, user: 'User', text: newComment }]);
-      setNewComment('');
+      // Kiểm tra từ ngữ nhạy cảm trong bình luận
+      if (containsSensitiveWords(newComment)) {
+        toast.error('Bình luận của bạn chứa ngôn từ phản cảm, vui lòng sửa lại!');
+        return;
+      }
+  
+      try {
+        const commentData = {
+          activityId,
+          userId: userId,
+          Comment1: newComment,
+        };
+  
+        const response = await AddComment(commentData);
+        if (response.status === 200) {
+          const newComment = {
+            commentID: response.data.commentID,
+            fullName: response.data.fullName,
+            commentText: response.data.commentText,
+          };
+  
+          setComments([...comments, newComment]);
+          setNewComment('');
+          toast.success('Bình luận của bạn đã được gửi!');
+        }
+      } catch (error) {
+        console.error('Lỗi khi gửi bình luận:', error);
+        toast.error('Gửi bình luận thất bại!');
+      }
     }
   };
+  
+
+  if (loading) {
+    return <div>Đang tải...</div>;
+  }
 
   return (
     <section className={styles.matchResult}>
@@ -23,31 +95,34 @@ function DetailsResult() {
         <div className={styles.team}>
           <img src="/team1.png" alt="Đội 1" className={styles.teamAvatar} />
           <h3>ĐỘI 1</h3>
-          <span className={styles.score}>3</span>
+          <span className={styles.score}>{result?.team1Score ?? '-'}</span>
         </div>
         <div className={styles.matchInfo}>
           <p>Tỉ số</p>
-          <p>Thông số</p>
         </div>
         <div className={styles.team}>
           <img src="/team2.png" alt="Đội 2" className={styles.teamAvatar} />
           <h3>ĐỘI 2</h3>
-          <span className={styles.score}>2</span>
+          <span className={styles.score}>{result?.team2Score ?? '-'}</span>
+         
         </div>
       </div>
-      <div className={styles.statsContainer}>
-        <div className={styles.teamStats}>Thông số đội 1</div>
-        <div className={styles.teamStats}>Thông số đội 2</div>
-      </div>
+
+      {/* Bình luận */}
       <div className={styles.commentSection}>
         <h3>Bình luận</h3>
         <div className={styles.comments}>
-          {comments.map(comment => (
-            <div key={comment.id} className={styles.comment}>
-              <strong>{comment.user}: </strong>
-              <span>{comment.text}</span>
-            </div>
-          ))}
+          {comments.length > 0 ? (
+            comments.map((comment) => (
+              <div key={comment.commentID} className={styles.comment}>
+  <strong>{comment.fullName}: </strong>
+  <span>{comment.commentText}</span>
+</div>
+
+            ))
+          ) : (
+            <div className={styles.noComments}>Hãy là người comment đầu tiên</div>
+          )}
         </div>
         <form onSubmit={handleCommentSubmit} className={styles.commentForm}>
           <input
@@ -57,7 +132,9 @@ function DetailsResult() {
             placeholder="Thêm bình luận..."
             className={styles.commentInput}
           />
-          <button type="submit" className={styles.commentButton}>Gửi</button>
+          <button type="submit" className={styles.commentButton}>
+            Gửi
+          </button>
         </form>
       </div>
     </section>

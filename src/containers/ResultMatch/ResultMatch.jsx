@@ -5,7 +5,6 @@ import { useParams } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './ResultMatch.module.css';
-import EventCard from './EventCard';
 import MatchDetails from './MatchDetails';
 import DetailsResult from './DetailsResult';
 import Footer from "../../components/Footer/Footer"
@@ -50,7 +49,6 @@ function ResultMatch() {
     <section className={styles.mainContent}>
         <HeaderLogin />
         <MatchDetails matchData={matchData}/>
-      <EventCard matchData={matchData}/>
       <DetailsResult matchData={matchData}/>
       <Footer />
       <ToastContainer 

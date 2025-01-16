@@ -173,14 +173,15 @@ function CustomerList() {
                 <td className="px-4 py-2 border-b border-gray-300">{customer.phone || "Chưa có"}</td>
                 <td className="px-4 py-2 border-b border-gray-300">{customer.address || "Chưa có"}</td>
                 <td className="px-4 py-2 border-b border-gray-300">
-                  <span
-                    className={`px-3 py-1 rounded-full text-white ${
-                      customer.status === "Active" ? "bg-green-500" : "bg-red-500"
-                    }`}
-                  >
-                    {customer.status || "Chưa có"}
-                  </span>
-                </td>
+  <span
+    className={`px-3 py-1 rounded-full text-white ${
+      customer.status === "Active" ? "bg-green-500" : "bg-red-500"
+    }`}
+  >
+    {customer.status === "Active" ? "Đang Hoạt Động" : "Ngừng Hoạt Động"}
+  </span>
+</td>
+
                 <td className="px-4 py-2 border-b border-gray-300 text-blue-500" onClick={() => handleDisplayDetail(customer.userId)}>
                   <button className="hover:bg-blue-100 text-blue-700 rounded-full text-xs ml-2">
                     <svg

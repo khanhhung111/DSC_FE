@@ -20,7 +20,6 @@ const SportsBetting = () => {
         />
         <div className={styles.bannerContent}>
           <h2 className={styles.bannerTitle}>Kèo thể thao</h2>
-          <p className={styles.bannerSubtitle}>Subtitle</p>
           <div className={styles.buttonGroup}>
             <button className={styles.primaryButton} onClick={() => navigate('/sportbetting')}>Tất cả các kèo thể thao</button>
             <button className={styles.secondaryButton} onClick={() => navigate('/management-betting')}>Quản lý kèo thể thao của tôi</button>

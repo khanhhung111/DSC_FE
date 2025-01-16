@@ -5,8 +5,6 @@ import { useNavigate } from 'react-router-dom';
 function MatchDetails({ memberdata }) {
   const navigate = useNavigate();
   const data = memberdata;
-
-  // Kiểm tra xem data?.activity có tồn tại hay không
   if (!data?.activity) {
     return (
       <section className={styles.matchDetails}>
@@ -20,11 +18,11 @@ function MatchDetails({ memberdata }) {
 
   return (
     <section className={styles.matchDetails}>
-       <img
-  src={data.activity.avatar || "https://cdn.builder.io/api/v1/image/assets/TEMP/50853265154f5d63067e64f710fa527ace98511e05967c947d8eabed1d8d8406?placeholderIfAbsent=true&apiKey=64a11f7ccf9c4f09a01cd9aadc1c5dac"}
-  alt="Pickleball match"
-  className={styles.matchImage}
-/>
+      <img
+        src={data.activity.avatar || "https://cdn.builder.io/api/v1/image/assets/TEMP/50853265154f5d63067e64f710fa527ace98511e05967c947d8eabed1d8d8406?placeholderIfAbsent=true&apiKey=64a11f7ccf9c4f09a01cd9aadc1c5dac"}
+        alt="Pickleball match"
+        className={styles.matchImage}
+      />
       <div className={styles.matchInfo}>
         <h1 className={styles.matchTitle}>{data.activity.activityName}</h1>
         <div className={styles.matchMeta}>
@@ -42,16 +40,22 @@ function MatchDetails({ memberdata }) {
           Số người tham gia: {data.playerCount} / {data.activity.numberOfTeams}
         </p>
         <p className={styles.matchPrice}>
-  {data.activity.expense === 0 ? (
-    <span style={{ color: "green", fontWeight: "bold" }}>Miễn phí</span>
-  ) : (
-    `$ ${data.activity.expense.toLocaleString()}đ`
-  )}
-</p>
+          {data.activity.expense === 0 ? (
+            <span style={{ color: "green", fontWeight: "bold" }}>Miễn phí</span>
+          ) : (
+            `$ ${data.activity.expense.toLocaleString()}đ`
+          )}
+        </p>
 
         <div className={styles.matchActions}>
+        <button
+        className={styles.resultsButton}
+        onClick={() => navigate(`/updatesporteventclub/${data?.activity.activityId}`)}
+      >
+        Chỉnh Sửa
+      </button>
           <button className={styles.joinButton} onClick={() => navigate(`/membermatchclub/${data.activity.activityId}`)}>Người tham gia</button>
-          <button className={styles.resultsButton} onClick={() => navigate('/resultmatch')}>Kết quả</button>
+          <button className={styles.resultsButton} onClick={() => navigate(`/resultmatchclub/${data?.activity.activityId}`)}>Kết quả</button>
         </div>
       </div>
     </section>

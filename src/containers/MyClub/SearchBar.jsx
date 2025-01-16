@@ -1,10 +1,38 @@
-
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./SearchBar.module.css";
 
-function SearchBar() {
+function SearchBar({ onSearch }) {
+  const [keyword, setKeyword] = useState("");
+
+  const handleInputChange = (e) => {
+    const newValue = e.target.value;
+    setKeyword(newValue);
+    // Nếu input trống, gọi onSearch với chuỗi rỗng để reset về trạng thái ban đầu
+    if (newValue === "") {
+      onSearch("");
+    }
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    // Chỉ thực hiện tìm kiếm khi có keyword
+    if (keyword.trim()) {
+      onSearch(keyword);
+    } else {
+      // Nếu không có keyword, reset về trạng thái ban đầu
+      onSearch("");
+    }
+  };
+
+  // Optional: Đảm bảo trạng thái ban đầu khi component được mount
+  useEffect(() => {
+    if (!keyword) {
+      onSearch("");
+    }
+  }, []);
+
   return (
-    <form className={styles.searchBar} role="search">
+    <form className={styles.searchBar} role="search" onSubmit={handleSearch}>
       <label htmlFor="clubSearch" className={styles.visuallyHidden}>
         Tìm kiếm câu lạc bộ
       </label>
@@ -12,8 +40,9 @@ function SearchBar() {
         type="search"
         id="clubSearch"
         className={styles.searchInput}
-        placeholder="Tìm kiếm"
-        aria-label="Tìm kiếm câu lạc bộ"
+        placeholder="Tìm kiếm câu lạc bộ"
+        value={keyword}
+        onChange={handleInputChange}
       />
       <button
         type="submit"

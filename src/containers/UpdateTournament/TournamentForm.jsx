@@ -33,8 +33,6 @@ const TournamentForm = () => {
     { id: 2, name: 'Bóng chuyền', icon: '🏐' },
     { id: 3, name: 'Bóng rổ', icon: '🏀' },
     { id: 4, name: 'Cầu lông', icon: '🏸' },
-    { id: 5, name: 'Pickleball', icon: '🏓' },
-    { id: 6, name: 'Bida', icon: '🎱' },
   ];
 
   const levels = [

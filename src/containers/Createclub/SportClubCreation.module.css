@@ -309,8 +309,158 @@
   resize: vertical;
 }
 
-@media (max-width: 991px) {
-  .clubForm {
-    max-width: 100%;
+/* Giữ nguyên tất cả CSS gốc của bạn và thêm media queries */
+
+/* Media Queries cho màn hình lớn */
+@media screen and (min-width: 1920px) {
+  .clubForm, .sportSelection, .skillLevelSelection {
+    max-width: 1600px;
+    margin: 38px auto;
+  }
+
+  .sportGrid {
+    padding-left: 200px;
+    gap: 80px;
+  }
+}
+
+/* Media Queries cho laptop lớn */
+@media screen and (max-width: 1440px) {
+  .sportGrid {
+    padding-left: 100px;
+    gap: 40px;
+  }
+
+  .clubForm, .sportSelection, .skillLevelSelection {
+    max-width: 1100px;
+  }
+}
+
+/* Media Queries cho màn hình trung bình */
+@media screen and (max-width: 1200px) {
+  .sportGrid {
+    padding-left: 50px;
+    gap: 30px;
+  }
+
+  .sectionTitle {
+    font-size: 35px;
+  }
+
+  .clubForm, .sportSelection, .skillLevelSelection {
+    max-width: 900px;
+  }
+}
+
+/* Media Queries cho tablet */
+@media screen and (max-width: 991px) {
+  .sportGrid {
+    padding-left: 20px;
+    gap: 20px;
+    justify-content: space-evenly;
+  }
+
+  .skillLevelGrid {
+    flex-direction: column;
+  }
+
+  .sportButton {
+    width: 100px;
+    height: 100px;
+  }
+
+  .sportEmoji {
+    font-size: 35px;
+  }
+
+  .sportName {
+    font-size: 16px;
+  }
+
+  .clubForm, .sportSelection, .skillLevelSelection {
+    padding: 0 20px;
+  }
+
+  .clubCreationSection {
+    padding: 30px 20px;
+  }
+}
+
+/* Media Queries cho mobile landscape */
+@media screen and (max-width: 768px) {
+  .sportGrid {
+    padding-left: 0;
+    gap: 15px;
+  }
+
+  .clubNavigation {
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .sportButton {
+    width: 90px;
+    height: 90px;
+  }
+
+  .sectionTitle {
+    font-size: 30px;
+  }
+
+  .formGroup {
+    margin-bottom: 15px;
+  }
+}
+
+/* Media Queries cho mobile */
+@media screen and (max-width: 576px) {
+  .sportGrid {
+    gap: 10px;
+  }
+
+  .sportButton {
+    width: 80px;
+    height: 80px;
+  }
+
+  .sportEmoji {
+    font-size: 30px;
+  }
+
+  .sportName {
+    font-size: 14px;
+  }
+
+  .sectionTitle {
+    font-size: 25px;
+  }
+
+  .clubCreationSection {
+    padding: 20px 15px;
+  }
+
+  .formInput, .formTextarea {
+    padding: 8px;
+  }
+}
+
+/* Media Queries cho màn hình rất nhỏ */
+@media screen and (max-width: 375px) {
+  .sportButton {
+    width: 70px;
+    height: 70px;
+  }
+
+  .sportEmoji {
+    font-size: 25px;
+  }
+
+  .sportName {
+    font-size: 12px;
+  }
+
+  .clubNavigation {
+    gap: 10px;
   }
 }

@@ -1,5 +1,10 @@
 /* TournamentForm.module.css */
+body {
+  background-color: #fff; /* Đảm bảo nền toàn bộ trang là trắng */
+  margin: 0; /* Loại bỏ khoảng cách mặc định của body */
+}
 .tournamentContainer {
+  background-color: #fff;
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
@@ -128,8 +133,8 @@
 
 .sportsGrid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 15px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
   margin-top: 15px;
 }
 
@@ -155,7 +160,7 @@
 
 .levelsGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   margin-top: 15px;
 }

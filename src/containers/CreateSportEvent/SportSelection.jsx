@@ -6,7 +6,6 @@ const sports = [
   { emoji: '🏐', name: 'Bóng chuyền' },
   { emoji: '🏀', name: 'Bóng rổ' },
   { emoji: '🏸', name: 'Cầu lông' },
-  { emoji: '🎱', name: 'Bida' },
 ];
 
 function SportSelection({ onSelectSport, selectedSport }) {

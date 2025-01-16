@@ -43,7 +43,7 @@ function MatchDetails({ matchData }) {
           <button className={styles.participantsButton} onClick={() => navigate(`/updatesportevent/${data.activity.activityId}`)}>Chỉnh Sửa</button>
           <button className={styles.participantsButton} onClick={() => navigate(`/membermymatch/${data.activity.activityId}`)}>Người tham gia</button>
           <button className={styles.joinButton} onClick={() => navigate(`/approvemember/${data.activity.activityId}`)}>Phê Duyệt</button>
-          <button className={styles.resultsButton} onClick={() => navigate('/resultmatch')}>Kết quả</button>
+          <button className={styles.resultsButton} onClick={() => navigate(`/resultmymatch/${data.activity.activityId}`)}>Kết quả</button>
         </div>
       </div>
     </section>

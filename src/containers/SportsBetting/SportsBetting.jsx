@@ -1,6 +1,5 @@
 import React from 'react';
 import HeaderLogin from '../../components/Header/Hearder';
-import SegmentedButton from './SegmentedButton';
 import EventList from './EventList';
 import Footer from '../../components/Footer/Footer';
 import styles from './SportsBetting.module.css';
@@ -19,7 +18,6 @@ const SportsBetting = () => {
         />
         <div className={styles.bannerContent}>
           <h2 className={styles.bannerTitle}>Kèo thể thao</h2>
-          <p className={styles.bannerSubtitle}>Subtitle</p>
           <div className={styles.buttonGroup}>
             <button className={styles.secondaryButton} onClick={() => navigate('/sportbetting')}>Tất cả các kèo thể thao</button>
             <button className={styles.primaryButton} onClick={() => navigate('/management-betting')}>Quản lý kèo thể thao của tôi</button>
@@ -27,7 +25,6 @@ const SportsBetting = () => {
         </div>
         </div>
       <main className={styles.mainContent}>
-        <SegmentedButton />
         <EventList />
       </main>
       <Footer />

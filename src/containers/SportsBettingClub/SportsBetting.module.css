@@ -104,11 +104,13 @@
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    position: absolute; /* Đặt vị trí tuyệt đối */
+    position: fixed; /* Đặt vị trí cố định */
+    bottom: 20px; /* Căn xuống dưới cùng với khoảng cách 20px */
     right: 20px; /* Căn sang phải với khoảng cách 20px */
-    top: 50%; /* Căn giữa theo chiều dọc, bạn có thể thay đổi nếu muốn */
-    transform: translateY(-50%); /* Đảm bảo nút nằm giữa theo chiều dọc */
+    z-index: 1000; /* Đảm bảo nút nằm trên các phần tử khác */
   }
+  
+  
   
   .greenButton:hover {
     opacity: 0.8;

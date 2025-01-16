@@ -1,4 +1,3 @@
-
 .heroSection {
   display: flex;
   min-height: 224px;
@@ -21,56 +20,69 @@
 
 .heroTitle {
   color: #fff;
-  font-weight: 600;  /* Bold text */
+  font-weight: 600;
   font-size: 45px;
-  line-height: 1;
+  line-height: 1.2;
   font-family: Roboto, sans-serif;
-  position: absolute;   /* Make it absolutely positioned */
-  bottom: 80px;         /* Adjust this value to control distance from the bottom */
-  left: 10%;            /* Horizontal positioning */
+  position: absolute;
+  bottom: 80px;
+  left: 10%;
   transform: translateX(-50%);
+  text-align: center;
 }
 
+/* Navigation buttons container */
 .heroNav {
   display: flex;
+  flex-wrap: wrap; /* Cho phép xuống hàng nếu cần */
   margin-top: 11px;
   width: 500px;
   max-width: 100%;
   gap: 20px;
   color: var(--Schemes-On-Surface, #1d1b20);
-  text-align: center;
+  text-align: left; /* Căn text về bên trái */
   letter-spacing: 0.1px;
-  font-weight: 500;  /* Semi-bold text */
+  font-weight: 500;
   font-size: 14px;
   line-height: 20px;
   font-family: Roboto, sans-serif;
 
-  position: absolute;   /* Position near bottom */
-  bottom: 20px;         /* Adjust distance from bottom */
-  left: 15%;            /* Horizontal positioning */
-  transform: translateX(-50%);  /* Correct centering */
+  position: absolute;
+  bottom: 20px;
+  left: 20px; /* Đặt vị trí cố định bên trái */
+  transform: none; /* Loại bỏ dịch chuyển center */
+  justify-content: flex-start; /* Căn các nút về bên trái */
 }
 
+
+/* Individual button styles */
 .navButton {
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  padding: 6px 16px 6px 8px;
+  padding: 6px 16px;
   background: var(--Schemes-Surface-Container-Low, #f7f2fa);
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.15);
   color: #0c0c0c;
-  font-weight: 500;  /* Semi-bold button text */
+  font-weight: 500;
   border: none;
   cursor: pointer;
+  font-size: 14px; /* Kích thước chữ */
+  transition: all 0.3s ease;
 }
 
-
+.navButton:hover {
+  background: var(--Colors-Green, #34c759);
+  color: #fff;
+}
 
 .navButton.active {
   background: var(--Colors-Green, #34c759);
+  color: #fff;
 }
 
+/* Hero Image */
 .heroImage {
   aspect-ratio: 6.41;
   object-fit: cover;
@@ -84,6 +96,7 @@
   bottom: 0;
 }
 
+/* Responsive Adjustments */
 @media (max-width: 991px) {
   .heroContent {
     max-width: 100%;
@@ -92,5 +105,54 @@
 
   .heroTitle {
     font-size: 40px;
+    bottom: 60px; /* Giảm khoảng cách từ đáy */
+  }
+
+  .heroNav {
+    gap: 10px; /* Giảm khoảng cách giữa các nút */
+    flex-wrap: wrap;
+    bottom: 10px; /* Điều chỉnh vị trí trên màn hình nhỏ hơn */
+    width: 100%;
+    justify-content: center;
+  }
+
+  .navButton {
+    padding: 6px 12px; /* Giảm padding */
+    font-size: 12px; /* Thu nhỏ font chữ */
+    flex: 1; /* Để các nút co dãn theo không gian */
+    min-width: 100px; /* Đảm bảo nút không quá nhỏ */
+  }
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 32px;
+    bottom: 50px;
+  }
+
+  .navButton {
+    padding: 8px;
+    font-size: 12px;
+    min-width: 80px; /* Đảm bảo nút nhỏ vừa đủ */
+  }
+}
+
+@media (max-width: 576px) {
+  .heroTitle {
+    font-size: 24px;
+    line-height: 1.4;
+    bottom: 40px;
+  }
+
+  .heroNav {
+    gap: 8px; /* Giảm khoảng cách giữa các nút */
+    bottom: 5px;
+    padding: 0 10px;
+  }
+
+  .navButton {
+    padding: 6px 8px;
+    font-size: 10px;
+    min-width: 70px;
   }
 }

@@ -180,8 +180,8 @@ function SportClubCreation() {
     <div className={styles.sportClubCreation}>
       <HeaderLogin />
       <main className={styles.mainContent}>
+      <HeroSection />
         <section className={styles.clubCreationSection}>
-          <HeroSection />
           <form className={styles.clubForm} onSubmit={handleSubmit}>
             {/* Club Name */}
             <div className={styles.formGroup}>

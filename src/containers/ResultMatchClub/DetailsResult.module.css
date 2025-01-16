@@ -1,0 +1,107 @@
+.matchResult {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.resultTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.scoreBoard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 20px;
+}
+
+.teamAvatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  object-fit: cover; /* Đảm bảo ảnh không bị méo */
+  overflow: hidden;  /* Ẩn phần ảnh vượt ra ngoài khung */
+}
+
+.team h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.score {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.matchInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.statsContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.teamStats {
+  font-size: 14px;
+  color: #666;
+}
+
+.commentSection {
+  width: 100%;
+}
+
+.comments {
+  margin-bottom: 20px;
+}
+
+.comment {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.commentForm {
+  display: flex;
+  margin-top: 20px;
+}
+
+.commentInput {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+}
+
+.commentButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+}
+
+.commentButton:hover {
+  background-color: #0056b3;
+}

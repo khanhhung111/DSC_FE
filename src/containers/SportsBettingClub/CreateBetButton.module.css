@@ -1,0 +1,15 @@
+/* CreateBetButton.module.css */
+.greenButton {
+    background-color: #28a745; /* Màu xanh lá */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    position: absolute; /* Đặt vị trí tuyệt đối */
+    right: 20px; /* Căn sang phải với khoảng cách 20px */
+    z-index: 1000; /* Đảm bảo nút nằm trên các phần tử khác */
+  }
+  

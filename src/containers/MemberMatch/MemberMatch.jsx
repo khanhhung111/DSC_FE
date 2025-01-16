@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { getMemberActivity } from "../../utils/activity"; 
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function Match() {
   const { activityId } = useParams();
   const [memberdata, setmemberdata] = useState([]);
@@ -44,6 +46,17 @@ function Match() {
       <HeaderLogin />
       <MatchDetails memberdata={memberdata}/>
       <ParticipantList memberdata={memberdata}/>
+      <ToastContainer 
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+              />
     </main>
         <Footer />
     </div>

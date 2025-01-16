@@ -15,8 +15,7 @@ function HeroSection() {
             className={styles.bannerImage}
           />
           <div className={styles.bannerContent}>
-            <h2 className={styles.bannerTitle}>Giải Đấu</h2>
-            <p className={styles.bannerSubtitle}>Subtitle</p>
+            <h2 className={styles.bannerTitle}>Quản Lí Giải Đấu</h2>
             <div className={styles.buttonGroup}>
               <button className={styles.primaryButton} onClick={() => navigate('/createTournament')}>Tạo Giải Đấu</button>
               <button className={styles.primaryButton} onClick={() => navigate('/managementtournament')}>Tham Gia Giải đấu</button>
