@@ -68,6 +68,7 @@ jobs:
           cp package.json artifact/
           cp package-lock.json artifact/ || true
           cp .npmrc artifact/ || true
+          cp web.config artifact/ || true
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -97,7 +98,8 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C966694DDC3F4163A9144C180F64F63A }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_A311BF90701844D1B8F283CFE6023EB4 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6AFFCF3DF704482C9EB2FB9B728E3828 }}
-      - name: 'Deploy to Azure Web App'
+      
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
