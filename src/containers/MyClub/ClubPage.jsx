@@ -8,6 +8,8 @@ import Footer from "../../components/Footer/Footer";
 import SegmentedButton from "./SegmentedButton";
 import { getMyClub, updateStatusClub } from "../../utils/club";
 import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import moment from 'moment';
 
 function ClubPage() {
