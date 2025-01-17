@@ -71,7 +71,7 @@ function ClubItem({ clubId, clubName, userCount, levelName, status, avatar, crea
             });
             setToastShown(true);
             // Thay đổi đường dẫn này để phù hợp với trang câu lạc bộ của bạn
-            setTimeout(() => navigate('/myclub'), 1900);
+            setTimeout(() => navigate('/myclub'), 1000);
           } else {
             toast.error("Không thể xác định câu lạc bộ cần gia hạn.");
           }

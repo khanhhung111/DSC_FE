@@ -30,11 +30,11 @@ function ClubPage() {
             toast.error('Dữ liệu sự kiện không đúng định dạng');
           }
         } else {
-          toast.error('Không thể tải thông tin sự kiện');
+          
         }
       } catch (error) {
         console.error('Error fetching events:', error);
-        toast.error('Không thể tải thông tin sự kiện');
+        
       } finally {
         setLoading(false);
       }

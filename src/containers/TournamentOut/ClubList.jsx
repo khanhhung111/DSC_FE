@@ -22,7 +22,7 @@ function ClubList() {
         }
       } catch (error) {
         console.error('Error fetching events:', error);
-        toast.error('Không thể tải thông tin sự kiện'); // Thông báo lỗi
+         // Thông báo lỗi
       } finally {
         setLoading(false); // Kết thúc loading
       }

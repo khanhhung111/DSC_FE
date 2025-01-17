@@ -30,7 +30,7 @@ function ResultMatchClub() {
         }
       } catch (error) {
         console.error('Error fetching events:', error);
-        toast.error('Không thể tải thông tin sự kiện');
+        
       } finally {
         setLoading(false);
       }
