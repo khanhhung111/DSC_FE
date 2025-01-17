@@ -1,41 +1,43 @@
 .card {
-    border-radius: 8px;
-    background-color: #fff;
-    border: 1px solid #d9d9d9;
-    padding: 44px 24px;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-width: 300px;
+  border-radius: 8px;
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  padding: 44px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 300px;
+}
+
+.title {
+  color: var(--sds-color-text-default-default);
+  font: var(--sds-typography-heading-font-weight) var(--sds-typography-heading-size-base) / 1.2 var(--sds-typography-heading-font-family);
+  letter-spacing: -0.48px;
+  margin-bottom: 24px;
+}
+
+.description {
+  color: var(--sds-color-text-default-secondary);
+  font: var(--sds-typography-body-font-weight-strong) var(--sds-typography-body-size-medium) var(--sds-typography-body-font-family);
+  line-height: 22px;
+  flex-grow: 1;
+}
+
+.link {
+  color: #007aff;
+  font-weight: var(--sds-typography-body-font-weight-regular);
+  text-decoration: none;
+  margin-top: 16px;
+  display: block; /* Đảm bảo link chiếm toàn bộ chiều rộng */
+  text-align: left; /* Căn trái nội dung bên trong link */
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 991px) {
+  .card {
+    padding: 34px 24px;
   }
-  
-  .title {
-    color: var(--sds-color-text-default-default);
-    font: var(--sds-typography-heading-font-weight) var(--sds-typography-heading-size-base) / 1.2 var(--sds-typography-heading-font-family);
-    letter-spacing: -0.48px;
-    margin-bottom: 24px;
-  }
-  
-  .description {
-    color: var(--sds-color-text-default-secondary);
-    font: var(--sds-typography-body-font-weight-strong) var(--sds-typography-body-size-medium) var(--sds-typography-body-font-family);
-    line-height: 22px;
-    flex-grow: 1;
-  }
-  
-  .link {
-    color: #007aff;
-    font-weight: var(--sds-typography-body-font-weight-regular);
-    text-decoration: none;
-    margin-top: 16px;
-  }
-  
-  .link:hover {
-    text-decoration: underline;
-  }
-  
-  @media (max-width: 991px) {
-    .card {
-      padding: 34px 24px;
-    }
-  }
+}

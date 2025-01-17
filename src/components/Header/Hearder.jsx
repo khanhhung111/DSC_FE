@@ -8,7 +8,7 @@ const navItems = [
   { text: 'Kèo thể thao', path: '/sportbetting' },
   { text: 'Giải đấu', path: '/createTournament' },
   { text: 'Câu lạc bộ', path: '/club' },
-  { text: 'Thông báo', path: '#' },
+  // { text: 'Thông báo', path: '#' },
 ];
 
 function Header() {
